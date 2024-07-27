@@ -69,7 +69,19 @@ const config = {
       }
     }
   },
-  plugins: [require('tailwindcss-animate')]
+
+  plugins: [
+    require('tailwindcss-animate'),
+    ({ addUtilities }: { addUtilities: Function }) => {
+      addUtilities({
+        '.flex-center': {
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center'
+        }
+      })
+    }
+  ]
 } satisfies Config
 
 export default config
