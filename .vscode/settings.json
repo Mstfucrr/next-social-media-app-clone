@@ -1,0 +1,13 @@
+{
+  //formatOnSave
+  "editor.formatOnSave": true,
+  // Files: Associations
+  "files.associations": {
+    "*.css": "tailwindcss"
+  },
+  "editor.quickSuggestions": {
+    "other": "on",
+    "comments": "off",
+    "strings": "on"
+  }
+}

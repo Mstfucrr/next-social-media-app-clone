@@ -1,4 +1,10 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {};
+const nextConfig = {
+  experimental: {
+    staleTimes: {
+      dynamic: 30 // Bu değer: Dinamik sayfaların cache süresini belirler.
+    }
+  }
+}
 
-export default nextConfig;
+export default nextConfig
