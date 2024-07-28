@@ -8,12 +8,13 @@ import {
   DropdownMenuSeparator,
   DropdownMenuItem
 } from '@/components/ui/dropdown-menu'
-import useSession from '../hook/useSession'
-import UserAvatar from './UserAvatar'
+import useSession from '../../hook/useSession'
+import UserAvatar from '../UserAvatar'
 import Link from 'next/link'
 import { LogOutIcon, UserIcon } from 'lucide-react'
 import { logout } from '@/views/auth/actions'
 import { cn } from '@/lib/utils'
+import ThemeMenu from './ThemeMenu'
 
 interface UserButtonProps {
   className?: string
@@ -38,6 +39,7 @@ export default function UserButton({ className }: UserButtonProps) {
             Profile
           </DropdownMenuItem>
         </Link>
+        <ThemeMenu />
         <DropdownMenuSeparator />
         <DropdownMenuItem onClick={() => logout()} className='text-red-500'>
           <LogOutIcon className='mr-2 size-4' />
