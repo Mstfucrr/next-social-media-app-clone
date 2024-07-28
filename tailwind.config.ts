@@ -14,38 +14,38 @@ const config = {
     },
     extend: {
       colors: {
-        border: 'hsl(var(--border))',
-        input: 'hsl(var(--input))',
-        ring: 'hsl(var(--ring))',
-        background: 'hsl(var(--background))',
-        foreground: 'hsl(var(--foreground))',
+        border: 'hsl(240 5.9% 90%)',
+        input: 'hsl(240 5.9% 90%)',
+        ring: 'hsl(142.1 76.2% 36.3%)',
+        background: 'hsl(0 0% 100%)',
+        foreground: 'hsl(240 10% 3.9%)',
         primary: {
-          DEFAULT: 'hsl(var(--primary))',
-          foreground: 'hsl(var(--primary-foreground))'
+          DEFAULT: 'hsl(142.1 76.2% 36.3%)',
+          foreground: 'hsl(355.7 100% 97.3%)'
         },
         secondary: {
-          DEFAULT: 'hsl(var(--secondary))',
-          foreground: 'hsl(var(--secondary-foreground))'
+          DEFAULT: 'hsl(240 4.8% 95.9%)',
+          foreground: 'hsl(240 5.9% 10%)'
         },
         destructive: {
-          DEFAULT: 'hsl(var(--destructive))',
-          foreground: 'hsl(var(--destructive-foreground))'
+          DEFAULT: 'hsl(0 84.2% 60.2%)',
+          foreground: 'hsl(0 0% 98%)'
         },
         muted: {
-          DEFAULT: 'hsl(var(--muted))',
-          foreground: 'hsl(var(--muted-foreground))'
+          DEFAULT: 'hsl(240 4.8% 95.9%)',
+          foreground: 'hsl(240 3.8% 46.1%)'
         },
         accent: {
-          DEFAULT: 'hsl(var(--accent))',
-          foreground: 'hsl(var(--accent-foreground))'
+          DEFAULT: 'hsl(240 4.8% 95.9%)',
+          foreground: 'hsl(240 5.9% 10%)'
         },
         popover: {
-          DEFAULT: 'hsl(var(--popover))',
-          foreground: 'hsl(var(--popover-foreground))'
+          DEFAULT: 'hsl(0 0% 100%)',
+          foreground: 'hsl(240 10% 3.9%)'
         },
         card: {
-          DEFAULT: 'hsl(var(--card))',
-          foreground: 'hsl(var(--card-foreground))'
+          DEFAULT: 'hsl(0 0% 100%)',
+          foreground: 'hsl(240 10% 3.9%)'
         }
       },
       borderRadius: {
@@ -69,7 +69,20 @@ const config = {
       }
     }
   },
-  plugins: [require('tailwindcss-animate')]
+
+  plugins: [
+    require('tailwindcss-animate'),
+    require('@tailwindcss/typography'),
+    ({ addUtilities }: { addUtilities: Function }) => {
+      addUtilities({
+        '.flex-center': {
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center'
+        }
+      })
+    }
+  ]
 } satisfies Config
 
 export default config
