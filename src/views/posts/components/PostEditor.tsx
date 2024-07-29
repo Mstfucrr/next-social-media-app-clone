@@ -2,7 +2,7 @@
 import { useEditor, EditorContent } from '@tiptap/react'
 import StarterKit from '@tiptap/starter-kit'
 import Placeholder from '@tiptap/extension-placeholder'
-import { submitPost } from '.'
+import { submitPost } from '../actions'
 import UserAvatar from '@/views/main/components/UserAvatar'
 import useSession from '@/views/main/hook/useSession'
 import LoadingButton from '@/components/ui/loadingButton'
