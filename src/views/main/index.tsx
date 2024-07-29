@@ -1,9 +1,5 @@
-import PostEditor from '../posts/actions/PostEditor'
+import PostView from '../posts'
 
-export default function HomeView() {
-  return (
-    <div className='w-full'>
-      <PostEditor />
-    </div>
-  )
+export default async function HomeView() {
+  return <PostView />
 }
