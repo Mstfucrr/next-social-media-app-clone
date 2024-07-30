@@ -1,21 +1,34 @@
 import prisma from '@/lib/prisma'
 import { validateRequest } from '@/views/auth/lib/auth'
-import { postDataInclude } from '@/views/posts/types'
+import { PostsPage, postDataInclude } from '@/views/posts/types'
+import { NextRequest } from 'next/server'
 
-export async function GET() {
+export async function GET(req: NextRequest) {
   try {
+    const curser = req.nextUrl.searchParams.get('cursor') ?? undefined
+
+    const pageSize = 10
+
     const { user } = await validateRequest()
 
     if (!user) return Response.json({ error: 'Unauthorized' }, { status: 401 })
 
     const posts = await prisma.post.findMany({
       include: postDataInclude,
-      orderBy: { createdAt: 'desc' }
+      orderBy: { createdAt: 'desc' },
+      take: pageSize + 1,
+      cursor: curser ? { id: curser } : undefined
     })
 
-    return Response.json(posts)
+    const nextCurser = posts.length > pageSize ? posts[pageSize].id : null
+
+    const data: PostsPage = {
+      posts: posts.slice(0, pageSize),
+      nextCursor: nextCurser
+    }
+
+    return Response.json(data)
   } catch (error) {
-    console.error(error)
     return Response.json({ error: 'Internal Server Error' }, { status: 500 })
   }
 }

@@ -1,7 +1,7 @@
 import React from 'react'
 import PostEditor from './components/PostEditor'
 import TrendsSidebar from '../main/components/trendsSidebar'
-import ForYouFeed from '../main/components/ForYouFeed'
+import ForYouFeed from './components/ForYouFeed'
 
 export default function PostView() {
   return (
