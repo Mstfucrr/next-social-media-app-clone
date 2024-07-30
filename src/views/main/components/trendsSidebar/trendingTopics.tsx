@@ -21,7 +21,7 @@ const getTrendingTopics = unstable_cache(
     return data
   },
   ['trendingTopics'],
-  { revalidate: 60 * 3 } // 3 minutes
+  { revalidate: 3 * 60 * 60 } // 3 minutes
 )
 
 export default async function TrendingTopics() {
