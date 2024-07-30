@@ -34,21 +34,8 @@ const LoginForm = () => {
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className='flex w-full flex-col gap-y-4'>
         {error && <p className='text-red-500'>{error}</p>}
-        <FormInput
-          name='username'
-          control={form.control}
-          errors={form.formState.errors}
-          label='Username'
-          placeholder='Username'
-        />
-        <FormInput
-          name='password'
-          control={form.control}
-          errors={form.formState.errors}
-          label='Password'
-          placeholder='Password'
-          type='password'
-        />
+        <FormInput name='username' control={form.control} label='Username' placeholder='Username' />
+        <FormInput name='password' control={form.control} label='Password' placeholder='Password' type='password' />
         <LoadingButton type='submit' isLoading={isPending} className='btn btn-primary'>
           Login
         </LoadingButton>

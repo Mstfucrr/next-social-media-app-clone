@@ -1,7 +1,7 @@
-import Image from 'next/image'
 import React from 'react'
 import SignupForm from './components/signupForm'
 import Link from 'next/link'
+import CustomImage from '@/components/image'
 
 const SignupView = () => {
   return (
@@ -23,7 +23,7 @@ const SignupView = () => {
           </Link>
         </div>
       </div>
-      <Image
+      <CustomImage
         src='/assets/signup-image.jpg'
         alt='Signup image'
         className='hidden object-cover md:block md:w-1/2'

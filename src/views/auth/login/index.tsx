@@ -1,7 +1,7 @@
-import Image from 'next/image'
 import React from 'react'
 import LoginForm from './components/loginForm'
 import Link from 'next/link'
+import CustomImage from '@/components/image'
 
 const LoginView = () => {
   return (
@@ -17,13 +17,14 @@ const LoginView = () => {
         </div>
         <LoginForm />
         <div className='text-sm text-gray-500'>
-          Don't have an account?
+          {/* Don't have an account? 20:14  Error: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.  react/no-unescaped-entities*/}
+          {"Don't have an account?"}
           <Link href='/signup' className='ml-2 text-primary'>
             Sign up
           </Link>
         </div>
       </div>
-      <Image
+      <CustomImage
         src='/assets/login-image.jpg'
         alt='Login image'
         className='hidden object-cover md:block md:w-1/2'

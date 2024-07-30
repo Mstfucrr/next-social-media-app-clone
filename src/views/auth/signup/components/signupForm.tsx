@@ -35,29 +35,9 @@ const SignupForm = () => {
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className='flex w-full flex-col gap-y-4'>
         {error && <p className='text-red-500'>{error}</p>}
-        <FormInput
-          name='username'
-          control={form.control}
-          errors={form.formState.errors}
-          label='Username'
-          placeholder='Username'
-        />
-        <FormInput
-          name='email'
-          control={form.control}
-          errors={form.formState.errors}
-          label='Email'
-          placeholder='Email'
-          type='email'
-        />
-        <FormInput
-          name='password'
-          control={form.control}
-          errors={form.formState.errors}
-          label='Password'
-          placeholder='Password'
-          type='password'
-        />
+        <FormInput name='username' control={form.control} label='Username' placeholder='Username' />
+        <FormInput name='email' control={form.control} label='Email' placeholder='Email' type='email' />
+        <FormInput name='password' control={form.control} label='Password' placeholder='Password' type='password' />
         <LoadingButton type='submit' className='mt-2 w-full' isLoading={isPending}>
           Sign up
         </LoadingButton>

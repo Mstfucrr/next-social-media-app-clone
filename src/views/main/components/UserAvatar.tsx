@@ -1,5 +1,5 @@
+import CustomImage from '@/components/image'
 import { cn } from '@/lib/utils'
-import Image from 'next/image'
 
 interface UserAvatarProps {
   avatarUrl: string | null
@@ -9,7 +9,7 @@ interface UserAvatarProps {
 
 export default function UserAvatar({ avatarUrl, size = 48, className }: UserAvatarProps) {
   return (
-    <Image
+    <CustomImage
       src={avatarUrl ?? '/assets/avatar-placeholder.png'}
       alt='avatar'
       width={size}
