@@ -19,7 +19,7 @@ export default function Post({ post }: PostProps) {
             {post.user.username}
           </Link>
           <Link href={`/posts/${post.id}`} className='block to-muted-foreground text-sm hover:underline'>
-            {formatRelativeDate(post.createdAt)}
+            {formatRelativeDate(new Date(post.createdAt))}
           </Link>
         </div>
       </div>
