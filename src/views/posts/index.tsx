@@ -3,6 +3,7 @@ import React from 'react'
 import PostEditor from './components/PostEditor'
 import Post from './components/Post'
 import { postDataInclude } from './types'
+import TrendsSidebar from '../main/components/trendsSidebar'
 
 export default async function PostView() {
   const posts = await prisma.post.findMany({
@@ -11,12 +12,15 @@ export default async function PostView() {
   })
 
   return (
-    <div className='flex w-full flex-col gap-5'>
-      <PostEditor />
-      <hr className='mx-auto my-2 h-0.5 w-2/3 bg-gradient-to-r from-transparent via-blue-400 to-transparent' />
-      {posts.map(post => (
-        <Post post={post} key={post.id} />
-      ))}
+    <div className='flex w-full gap-5'>
+      <div className='flex w-full flex-col gap-5'>
+        <PostEditor />
+        <hr className='mx-auto my-2 h-0.5 w-2/3 bg-gradient-to-r from-transparent via-blue-400 to-transparent' />
+        {posts.map(post => (
+          <Post post={post} key={post.id} />
+        ))}
+      </div>
+      <TrendsSidebar />
     </div>
   )
 }
