@@ -5,7 +5,7 @@ import Placeholder from '@tiptap/extension-placeholder'
 import UserAvatar from '@/views/main/components/UserAvatar'
 import useSession from '@/views/main/hook/useSession'
 import LoadingButton from '@/components/ui/loadingButton'
-import useSubmitPostMutation from '../actions/mutation'
+import useSubmitPostMutation from './actions/mutation'
 
 export default function PostEditor() {
   const { user } = useSession()
