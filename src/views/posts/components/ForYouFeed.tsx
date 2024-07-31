@@ -1,20 +1,12 @@
 'use client'
 
-import kyInstance from '@/lib/ky'
 import Post from '@/views/posts/components/Post'
-import { PostsPage } from '@/views/posts/types'
-import { useInfiniteQuery } from '@tanstack/react-query'
 import InfiniteScrollContainer from './InfiniteScrollContainer'
 import PostSkeleton from './PostSkeleton'
+import useForYouFeedQuery from '../actions/query'
 
 export default function ForYouFeed() {
-  const { data, fetchNextPage, hasNextPage, isFetching, isFetchingNextPage, status } = useInfiniteQuery({
-    queryKey: ['post-feed', 'for-you'],
-    queryFn: async ({ pageParam }) =>
-      kyInstance.get('/api/post/for-you', pageParam ? { searchParams: { cursor: pageParam } } : {}).json<PostsPage>(),
-    initialPageParam: null as string | null,
-    getNextPageParam: lastPage => lastPage.nextCursor
-  })
+  const { data, status, fetchNextPage, hasNextPage, isFetchingNextPage, isFetching } = useForYouFeedQuery()
 
   const posts = data?.pages.flatMap(page => page.posts) ?? [] // burada pages array'ini flatMap ederek postları tek bir array'de topluyoruz
 

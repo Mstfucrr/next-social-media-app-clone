@@ -2,16 +2,15 @@
 import { useEditor, EditorContent } from '@tiptap/react'
 import StarterKit from '@tiptap/starter-kit'
 import Placeholder from '@tiptap/extension-placeholder'
-import { submitPost } from '../actions'
 import UserAvatar from '@/views/main/components/UserAvatar'
 import useSession from '@/views/main/hook/useSession'
 import LoadingButton from '@/components/ui/loadingButton'
-import { useTransition } from 'react'
+import useSubmitPostMutation from '../actions/mutation'
 
 export default function PostEditor() {
   const { user } = useSession()
 
-  const [isPending, startTransition] = useTransition()
+  const { mutate: createPost, isPending } = useSubmitPostMutation()
 
   const editor = useEditor({
     extensions: [
@@ -28,10 +27,12 @@ export default function PostEditor() {
 
   const input = editor?.getText({ blockSeparator: '\n' }) ?? ''
 
-  async function onSubmit() {
-    startTransition(async () => {
-      await submitPost(input)
-      editor?.commands.clearContent()
+  const onSubmit = () => {
+    if (!input.trim()) return
+    createPost(input, {
+      onSuccess: () => {
+        editor?.commands.clearContent()
+      }
     })
   }
 
