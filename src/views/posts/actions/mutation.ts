@@ -1,51 +1,44 @@
-import { useToast } from '@/components/ui/use-toast'
+import { PostData, PostsPage } from '../types'
 import { InfiniteData, QueryFilters, useMutation, useQueryClient } from '@tanstack/react-query'
-import { submitPost } from '.'
-import { PostsPage } from '../types'
+import { usePathname, useRouter } from 'next/navigation'
+import { deletePost } from '.'
+import { toast } from 'react-toastify'
 
-export default function useSubmitPostMutation() {
-  const { toast } = useToast()
-
+export function useDeleteMutation(post: PostData) {
   const queryClient = useQueryClient()
 
+  const router = useRouter()
+
+  const pathName = usePathname()
+
   const mutation = useMutation({
-    mutationFn: submitPost,
-    onSuccess: async newPost => {
-      // cancel the query to refetch the data
-      const queryFiler: QueryFilters = { queryKey: ['post-feed', 'for-you'] }
+    mutationFn: deletePost,
+    onSuccess: async deletedPost => {
+      const queryFilter: QueryFilters = { queryKey: ['post-feed'] }
 
-      // kısım 1
-      await queryClient.cancelQueries(queryFiler)
+      await queryClient.cancelQueries(queryFilter)
 
-      queryClient.setQueriesData<InfiniteData<PostsPage, string | null>>(queryFiler, oldData => {
-        const firstPage = oldData?.pages[0] // Burada ilk sayfayı alıyoruz
-        if (firstPage) {
-          // Eğer ilk sayfa varsa
-          return {
-            pageParams: oldData?.pageParams, // Eski sayfa parametrelerini alıyoruz
-            pages: [
-              {
-                posts: [newPost, ...firstPage.posts], // Yeni postu ilk sayfaya ekliyoruz
-                nextCursor: firstPage.nextCursor // İlk sayfanın nextCursor'ını alıyoruz
-              },
-              ...oldData.pages.slice(1) // Eski sayfaların geri kalanını alıyoruz. Yani 1. sayfadan sonraki sayfaları ve ekliyoruz
-            ]
-          }
+      queryClient.setQueriesData<InfiniteData<PostsPage, string | null>>(queryFilter, oldData => {
+        if (!oldData) return
+
+        return {
+          pageParams: oldData.pageParams,
+          pages: oldData.pages.map(page => ({
+            nextCursor: page.nextCursor,
+            posts: page.posts.filter(p => p.id !== deletedPost.id)
+          }))
         }
       })
 
-      // kısım 2
-      // queryClient.invalidateQueries(queryFiler) // Bu kısmı kullanmak yerine yukarıdaki kısmı kullanarak daha performanslı bir şekilde işlem yapabiliriz. Yukarıdaki kısmı kullanarak sadece ilk sayfayı güncellemiş oluyoruz. Bu sayede tüm sayfaları tekrar yüklemek yerine sadece ilk sayfayı güncellemiş oluyoruz
+      toast.success('Post deleted', { autoClose: 2000 })
 
-      toast({ description: 'Post created successfully.' }) // Post başarılı bir şekilde oluşturulduğunda toast mesajı gösteriyoruz
+      if (pathName === `/posts/${deletedPost.id}`) router.push(`/users/${deletedPost.user.username}`)
     },
-    onError: error => {
+    onError(error) {
       console.error(error)
-      toast({
-        variant: 'destructive',
-        description: 'Failed to create post, please try again later.'
-      })
+      toast.error('Failed to delete post', { autoClose: 2000 })
     }
   })
+
   return mutation
 }

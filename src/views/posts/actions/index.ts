@@ -1,23 +1,28 @@
 'use server'
 
-import { validateRequest } from '@/views/auth/lib/auth'
-import { createPostSchema } from '../lib/validation'
 import prisma from '@/lib/prisma'
+import { validateRequest } from '@/views/auth/lib/auth'
 import { postDataInclude } from '../types'
 
-export async function submitPost(input: string) {
+export async function deletePost(id: string) {
   const { user } = await validateRequest()
+
   if (!user) throw new Error('Unauthorized')
 
-  const { content } = createPostSchema.parse({ content: input })
+  // delete post logic
 
-  const newPost = await prisma.post.create({
-    data: {
-      content,
-      userId: user.id
-    },
+  const post = await prisma.post.findUnique({
+    where: { id }
+  })
+
+  if (!post) throw new Error('Post not found')
+
+  if (post.userId !== user.id) throw new Error('Unauthorized')
+
+  const deletedPost = await prisma.post.delete({
+    where: { id },
     include: postDataInclude
   })
 
-  return newPost
+  return deletedPost
 }

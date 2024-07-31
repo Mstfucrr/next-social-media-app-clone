@@ -1,5 +1,5 @@
 import React from 'react'
-import PostEditor from './components/PostEditor'
+import PostEditor from './editor/PostEditor'
 import TrendsSidebar from '../main/components/trendsSidebar'
 import ForYouFeed from './components/ForYouFeed'
 
