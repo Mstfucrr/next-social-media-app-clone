@@ -15,23 +15,29 @@ export default function useFollower(userId: string, initialState: FollowerInfo) 
     staleTime: Infinity
   })
 
+  const { data } = query
+
   const mutation = useMutation({
     mutationFn: () => {
-      return initialState.isFollowdUser
-        ? kyInstance.delete(`/api/users/${userId}/followers`).json<FollowerInfo>()
-        : kyInstance.post(`/api/users/${userId}/followers`).json<FollowerInfo>()
+      return data.isFollowdUser
+        ? kyInstance.delete(`/api/users/${userId}/followers`)
+        : kyInstance.post(`/api/users/${userId}/followers`)
     },
     onMutate: async () => {
-      await queryClient.cancelQueries({ queryKey: QUERY_KEY })
+      await queryClient.cancelQueries({ queryKey: QUERY_KEY }) // bu query'yi iptal et
 
-      const previousData = queryClient.getQueryData<FollowerInfo>(QUERY_KEY)
+      const previousData = queryClient.getQueryData<FollowerInfo>(QUERY_KEY) // önceki veriyi al
 
       queryClient.setQueryData<FollowerInfo>(QUERY_KEY, () => ({
+        // veriyi güncelle
         followers: (previousData?.followers ?? 0) + (previousData?.isFollowdUser ? -1 : 1),
         isFollowdUser: !previousData?.isFollowdUser
       }))
 
       return { previousData }
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['post-feed', 'following'] }) // bu query'yi yenile
     },
     onError: (err, variables, context) => {
       queryClient.setQueryData<FollowerInfo>(QUERY_KEY, context?.previousData)
@@ -41,7 +47,7 @@ export default function useFollower(userId: string, initialState: FollowerInfo) 
   })
 
   return {
-    data: query.data,
+    data: data,
     mutate: mutation.mutate,
     isLoading: mutation.isPending
   }

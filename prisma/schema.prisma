@@ -27,8 +27,8 @@ model User {
   session      Session[]
   createdAt    DateTime  @default(now())
   posts        Post[]
-  followers    Follow[]  @relation("Following")
-  following    Follow[]  @relation("Followers")
+  followers    Follow[]  @relation("Followers")
+  following    Follow[]  @relation("Following")
 
   @@map("users")
 }

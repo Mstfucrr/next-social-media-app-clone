@@ -5,17 +5,19 @@ import InfiniteScrollContainer from './InfiniteScrollContainer'
 import PostSkeleton from './PostSkeleton'
 import usePostOperations from '../hooks/usePostOperations'
 
-export default function ForYouFeed() {
-  const { forYouFeedQuery } = usePostOperations()
+export default function FollowingFeed() {
+  const { followingFeedQuery } = usePostOperations()
 
-  const { data, status, fetchNextPage, hasNextPage, isFetchingNextPage, isFetching } = forYouFeedQuery
+  const { data, status, fetchNextPage, hasNextPage, isFetchingNextPage, isFetching } = followingFeedQuery
 
-  const posts = data?.pages.flatMap(page => page.posts) ?? [] // burada pages array'ini flatMap ederek postları tek bir array'de topluyoruz
+  const posts = data?.pages.flatMap(page => page.posts) ?? []
 
   if (status === 'pending') return <PostSkeleton />
 
   if (status === 'success' && !posts.length && !hasNextPage)
-    return <p className='text-center text-muted-foreground'>No posts found.</p>
+    return (
+      <p className='text-center text-muted-foreground'>No posts found. Follow some users to see their posts here.</p>
+    )
 
   if (status === 'error') return <p className='text-center text-destructive'>An error occured while loading posts.</p>
 
