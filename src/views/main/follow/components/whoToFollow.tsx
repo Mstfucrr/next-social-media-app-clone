@@ -1,10 +1,10 @@
 import prisma from '@/lib/prisma'
 import { validateRequest } from '@/views/auth/lib/auth'
-import { userDataSelect } from '@/views/posts/types'
 import Link from 'next/link'
 import React from 'react'
-import UserAvatar from '../UserAvatar'
-import { Button } from '@/components/ui/button'
+import UserAvatar from '../../components/UserAvatar'
+import FollowButton from './FollowButton'
+import { getUserDataSelect } from '@/utils/getInclude'
 
 async function WhoToFollow() {
   const { user } = await validateRequest()
@@ -13,9 +13,10 @@ async function WhoToFollow() {
 
   const usersToFollow = await prisma.user.findMany({
     where: {
-      NOT: { id: user.id }
+      NOT: { id: user.id },
+      followers: { none: { followerId: user.id } }
     },
-    select: userDataSelect,
+    select: getUserDataSelect(user.id),
     take: 5
   })
 
@@ -31,7 +32,13 @@ async function WhoToFollow() {
               <span className='line-clamp-1 break-all text-muted-foreground'>@{user.username}</span>
             </div>
           </Link>
-          <Button>Follow</Button>
+          <FollowButton
+            userId={user.id}
+            initialState={{
+              followers: user._count.followers,
+              isFollowdUser: user.followers.some(follower => follower.followerId === user.id)
+            }}
+          />
         </div>
       ))}
     </div>

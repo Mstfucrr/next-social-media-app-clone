@@ -2,7 +2,7 @@ import { Loader2 } from 'lucide-react'
 import dynamic from 'next/dynamic'
 import React from 'react'
 
-const WhoToFollow = dynamic(() => import('./whoToFollow'), {
+const WhoToFollow = dynamic(() => import('../../follow/components/whoToFollow'), {
   ssr: false,
   loading: () => (
     <div className='rounded-2xl bg-card p-5 shadow-sm'>
