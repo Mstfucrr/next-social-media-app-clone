@@ -8,7 +8,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuItem
 } from '@/components/ui/dropdown-menu'
-import useSession from '../../hook/useSession'
+import useSession from '../../hooks/useSession'
 import UserAvatar from '../UserAvatar'
 import Link from 'next/link'
 import { LogOutIcon, UserIcon } from 'lucide-react'

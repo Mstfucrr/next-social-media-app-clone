@@ -6,10 +6,10 @@ import {
   DialogHeader,
   DialogTitle
 } from '@/components/ui/dialog'
-import { useDeleteMutation } from '../actions/mutation'
 import { PostData } from '../types'
 import LoadingButton from '@/components/ui/loadingButton'
 import { Button } from '@/components/ui/button'
+import usePostOperations from '../hooks/usePostOperations'
 
 interface DeletePostDialogProps {
   post: PostData
@@ -18,7 +18,9 @@ interface DeletePostDialogProps {
 }
 
 export default function DeletePostDialog({ post, open, onClose }: DeletePostDialogProps) {
-  const { isPending, mutate: deletePost } = useDeleteMutation(post)
+  const { deleteMutation } = usePostOperations()
+
+  const { isPending, mutate: deletePost } = deleteMutation
 
   const handleOpenChange = (open: boolean) => {
     if (!open || !isPending) onClose()

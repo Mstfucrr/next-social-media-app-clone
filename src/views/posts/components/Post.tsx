@@ -3,7 +3,7 @@ import Link from 'next/link'
 import { PostData } from '../types'
 import UserAvatar from '@/views/main/components/UserAvatar'
 import { formatRelativeDate } from '@/lib/utils'
-import useSession from '@/views/main/hook/useSession'
+import useSession from '@/views/main/hooks/useSession'
 import PostMoreButton from './PostMoreButton'
 
 type PostProps = {
