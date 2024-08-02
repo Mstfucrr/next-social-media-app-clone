@@ -2,20 +2,31 @@ import { InfiniteData, QueryFilters, useMutation, useQueryClient } from '@tansta
 import { submitPost } from '.'
 import { PostsPage } from '../../types'
 import { toast } from 'react-toastify'
+import useSession from '@/views/main/hooks/useSession'
 
 export default function useSubmitPostMutation() {
   const queryClient = useQueryClient()
+
+  const { user } = useSession()
 
   const mutation = useMutation({
     mutationFn: submitPost,
     onSuccess: async newPost => {
       // cancel the query to refetch the data
-      const queryFiler: QueryFilters = { queryKey: ['post-feed', 'for-you'] }
+      const queryFilter = {
+        queryKey: ['post-feed'],
+        predicate: query => {
+          return (
+            query.queryKey.includes('for-you') ||
+            (query.queryKey.includes('user-posts') && query.queryKey.includes(user.id))
+          )
+        }
+      } satisfies QueryFilters
 
       // kısım 1
-      await queryClient.cancelQueries(queryFiler)
+      await queryClient.cancelQueries(queryFilter)
 
-      queryClient.setQueriesData<InfiniteData<PostsPage, string | null>>(queryFiler, oldData => {
+      queryClient.setQueriesData<InfiniteData<PostsPage, string | null>>(queryFilter, oldData => {
         const firstPage = oldData?.pages[0] // Burada ilk sayfayı alıyoruz
         if (firstPage) {
           // Eğer ilk sayfa varsa
@@ -32,8 +43,15 @@ export default function useSubmitPostMutation() {
         }
       })
 
+      queryClient.invalidateQueries({
+        queryKey: queryFilter.queryKey,
+        predicate(query) {
+          return queryFilter.predicate(query) && !query.state.data
+        }
+      })
+
       // kısım 2
-      // queryClient.invalidateQueries(queryFiler) // Bu kısmı kullanmak yerine yukarıdaki kısmı kullanarak daha performanslı bir şekilde işlem yapabiliriz. Yukarıdaki kısmı kullanarak sadece ilk sayfayı güncellemiş oluyoruz. Bu sayede tüm sayfaları tekrar yüklemek yerine sadece ilk sayfayı güncellemiş oluyoruz
+      // queryClient.invalidateQueries(queryFilter) // Bu kısmı kullanmak yerine yukarıdaki kısmı kullanarak daha performanslı bir şekilde işlem yapabiliriz. Yukarıdaki kısmı kullanarak sadece ilk sayfayı güncellemiş oluyoruz. Bu sayede tüm sayfaları tekrar yüklemek yerine sadece ilk sayfayı güncellemiş oluyoruz
 
       toast.success('Post created successfully.', { autoClose: 2000 })
     },

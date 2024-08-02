@@ -9,7 +9,7 @@ import {
 import { PostData } from '../types'
 import LoadingButton from '@/components/ui/loadingButton'
 import { Button } from '@/components/ui/button'
-import usePostOperations from '../hooks/usePostOperations'
+import usePostOperations from '../../hooks/usePostOperations'
 
 interface DeletePostDialogProps {
   post: PostData

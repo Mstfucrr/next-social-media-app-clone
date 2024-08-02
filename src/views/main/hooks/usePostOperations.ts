@@ -1,9 +1,9 @@
-import { PostsPage } from '../types'
+import { PostsPage } from '../posts/types'
 import { InfiniteData, QueryFilters, useMutation, useQueryClient, useInfiniteQuery } from '@tanstack/react-query'
 import { usePathname, useRouter } from 'next/navigation'
 import { toast } from 'react-toastify'
 import kyInstance from '@/lib/ky'
-import { deletePost } from '../actions'
+import { deletePost } from '../posts/actions'
 
 const usePostOperations = () => {
   const queryClient = useQueryClient()
@@ -42,20 +42,33 @@ const usePostOperations = () => {
   const forYouFeedQuery = useInfiniteQuery({
     queryKey: ['post-feed', 'for-you'],
     queryFn: async ({ pageParam }) =>
-      kyInstance.get('/api/post/for-you', pageParam ? { searchParams: { cursor: pageParam } } : {}).json<PostsPage>(),
+      kyInstance.get('/api/posts/for-you', pageParam ? { searchParams: { cursor: pageParam } } : {}).json<PostsPage>(),
     initialPageParam: null as string | null,
     getNextPageParam: lastPage => lastPage.nextCursor
   })
+
+  const userFeedQuery = (userId: string) =>
+    useInfiniteQuery({
+      queryKey: ['post-feed', 'user-posts', userId],
+      queryFn: async ({ pageParam }) =>
+        kyInstance
+          .get(`/api/users/${userId}/posts`, pageParam ? { searchParams: { cursor: pageParam } } : {})
+          .json<PostsPage>(),
+      initialPageParam: null as string | null,
+      getNextPageParam: lastPage => lastPage.nextCursor
+    })
 
   const followingFeedQuery = useInfiniteQuery({
     queryKey: ['post-feed', 'following'],
     queryFn: async ({ pageParam }) =>
-      kyInstance.get('/api/post/following', pageParam ? { searchParams: { cursor: pageParam } } : {}).json<PostsPage>(),
+      kyInstance
+        .get('/api/posts/following', pageParam ? { searchParams: { cursor: pageParam } } : {})
+        .json<PostsPage>(),
     initialPageParam: null as string | null,
     getNextPageParam: lastPage => lastPage.nextCursor
   })
 
-  return { deleteMutation, forYouFeedQuery, followingFeedQuery }
+  return { deleteMutation, forYouFeedQuery, followingFeedQuery, userFeedQuery }
 }
 
 export default usePostOperations

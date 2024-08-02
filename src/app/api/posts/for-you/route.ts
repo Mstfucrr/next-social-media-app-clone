@@ -1,6 +1,7 @@
 import prisma from '@/lib/prisma'
 import { validateRequest } from '@/views/auth/lib/auth'
-import { getPostDataInclude } from '@/views/posts/utils'
+import { PostsPage } from '@/views/main/posts/types'
+import { getPostDataInclude } from '@/views/main/posts/utils'
 import { NextRequest } from 'next/server'
 
 export async function GET(req: NextRequest) {
@@ -14,11 +15,6 @@ export async function GET(req: NextRequest) {
     if (!user) return Response.json({ error: 'Unauthorized' }, { status: 401 })
 
     const posts = await prisma.post.findMany({
-      where: {
-        user: {
-          followers: { some: { followerId: user.id } }
-        }
-      }, // bu query ile sadece takip edilen kullanıcıların postları getiriliyor
       include: getPostDataInclude(user.id),
       orderBy: { createdAt: 'desc' },
       take: pageSize + 1,
@@ -27,7 +23,7 @@ export async function GET(req: NextRequest) {
 
     const nextCurser = posts.length > pageSize ? posts[pageSize].id : null
 
-    const data = {
+    const data: PostsPage = {
       posts: posts.slice(0, pageSize),
       nextCursor: nextCurser
     }

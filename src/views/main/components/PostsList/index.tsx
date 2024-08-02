@@ -1,16 +1,22 @@
 'use client'
 
-import Post from '@/views/posts/components/Post'
+import Post from '@/views/main/components/PostsList/Post'
 import InfiniteScrollContainer from './InfiniteScrollContainer'
 import PostSkeleton from './PostSkeleton'
-import usePostOperations from '../hooks/usePostOperations'
+import { InfiniteData, UseInfiniteQueryResult } from '@tanstack/react-query'
+import { PostsPage } from '@/views/main/posts/types'
+import { Loader2 } from 'lucide-react'
 
-export default function ForYouFeed() {
-  const { forYouFeedQuery } = usePostOperations()
+interface PostsListProps {
+  queryResult: UseInfiniteQueryResult<InfiniteData<PostsPage, unknown>, Error>
+}
 
-  const { data, status, fetchNextPage, hasNextPage, isFetchingNextPage, isFetching } = forYouFeedQuery
+export default function PostsList({ queryResult }: PostsListProps) {
+  if (!queryResult) return null
 
-  const posts = data?.pages.flatMap(page => page.posts) ?? [] // burada pages array'ini flatMap ederek postları tek bir array'de topluyoruz
+  const { data, status, fetchNextPage, hasNextPage, isFetchingNextPage, isFetching } = queryResult
+
+  const posts = data?.pages.flatMap(page => page.posts) ?? []
 
   if (status === 'pending') return <PostSkeleton />
 
@@ -27,7 +33,7 @@ export default function ForYouFeed() {
       {posts.map(post => (
         <Post key={post.id} post={post} />
       ))}
-      {isFetchingNextPage && Array.from({ length: 3 }, (_, index) => <PostSkeleton key={index} />)}
+      {isFetchingNextPage && <Loader2 className='mx-auto my-3 animate-spin' />}
     </InfiniteScrollContainer>
   )
 }
