@@ -1,10 +1,10 @@
 'use client'
 import Link from 'next/link'
-import { PostData } from '../types'
+import { PostData } from '../../posts/types'
 import UserAvatar from '@/views/main/components/UserAvatar'
 import { formatRelativeDate } from '@/lib/utils'
 import useSession from '@/views/main/hooks/useSession'
-import PostMoreButton from './PostMoreButton'
+import PostMoreButton from '../../posts/components/PostMoreButton'
 
 type PostProps = {
   post: PostData

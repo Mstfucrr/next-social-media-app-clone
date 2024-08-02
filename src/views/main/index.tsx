@@ -1,5 +1,5 @@
-import PostView from '../posts'
+import PostView from '@/views/main/posts'
 
-export default async function HomeView() {
+export default async function MainView() {
   return <PostView />
 }
