@@ -1,5 +1,5 @@
-import HomeView from '@/views/main'
+import PostView from '@/views/main/posts'
 
-const Page = () => <HomeView />
+const Page = () => <PostView />
 
 export default Page
