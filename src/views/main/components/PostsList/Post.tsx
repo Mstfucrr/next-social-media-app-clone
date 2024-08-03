@@ -5,6 +5,8 @@ import UserAvatar from '@/views/main/components/UserAvatar'
 import { formatRelativeDate } from '@/lib/utils'
 import useSession from '@/views/main/hooks/useSession'
 import PostMoreButton from '../../posts/components/PostMoreButton'
+import Linkify from '@/views/main/components/Linkify'
+import UserTooltip from '../UserTooltip'
 
 type PostProps = {
   post: PostData
@@ -21,9 +23,11 @@ export default function Post({ post }: PostProps) {
             <UserAvatar avatarUrl={post.user.avatarUrl} />
           </Link>
           <div>
-            <Link href={`/users/${post.user.username}`} className='block font-medium hover:underline'>
-              {post.user.username}
-            </Link>
+            <UserTooltip user={post.user} loogedInUserId={user.id}>
+              <Link href={`/users/${post.user.username}`} className='block font-medium hover:underline'>
+                {post.user.displayName}
+              </Link>
+            </UserTooltip>
             <Link href={`/posts/${post.id}`} className='block to-muted-foreground text-sm hover:underline'>
               {formatRelativeDate(post.createdAt)}
             </Link>
@@ -36,7 +40,9 @@ export default function Post({ post }: PostProps) {
           />
         )}
       </div>
-      <div className='whitespace-pre-line break-words'>{post.content}</div>
+      <Linkify>
+        <div className='whitespace-pre-line break-words'>{post.content}</div>
+      </Linkify>
     </article>
   )
 }

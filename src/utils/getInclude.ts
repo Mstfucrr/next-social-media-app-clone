@@ -15,7 +15,3 @@ export function getUserDataSelect(loggedInUserId: string) {
     _count: { select: { followers: true, posts: true } }
   } satisfies Prisma.UserSelect
 }
-
-export type UserData = Prisma.UserGetPayload<{
-  select: ReturnType<typeof getUserDataSelect>
-}>

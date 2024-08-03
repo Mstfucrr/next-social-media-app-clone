@@ -47,7 +47,7 @@ const usePostOperations = () => {
     getNextPageParam: lastPage => lastPage.nextCursor
   })
 
-  const userFeedQuery = (userId: string) =>
+  const useUserFeedQuery = (userId: string) =>
     useInfiniteQuery({
       queryKey: ['post-feed', 'user-posts', userId],
       queryFn: async ({ pageParam }) =>
@@ -68,7 +68,7 @@ const usePostOperations = () => {
     getNextPageParam: lastPage => lastPage.nextCursor
   })
 
-  return { deleteMutation, forYouFeedQuery, followingFeedQuery, userFeedQuery }
+  return { deleteMutation, forYouFeedQuery, followingFeedQuery, useUserFeedQuery }
 }
 
 export default usePostOperations
