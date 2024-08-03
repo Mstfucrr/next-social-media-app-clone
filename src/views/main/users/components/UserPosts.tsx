@@ -8,8 +8,8 @@ interface UserPostsProps {
 }
 
 export default function UserPosts({ userId }: UserPostsProps) {
-  const { userFeedQuery } = usePostOperations()
-  const queryResult = userFeedQuery(userId)
+  const { useUserFeedQuery } = usePostOperations()
+  const queryResult = useUserFeedQuery(userId)
 
   return <PostsList queryResult={queryResult} />
 }

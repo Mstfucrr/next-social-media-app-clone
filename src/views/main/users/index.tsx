@@ -1,5 +1,4 @@
 import { FollowerInfo } from '@/lib/types'
-import { UserData } from '@/utils/getInclude'
 import React from 'react'
 import { formatDate } from 'date-fns'
 import { formatNumber } from '@/lib/utils'
@@ -9,6 +8,7 @@ import { Button } from '@/components/ui/button'
 import { PencilIcon } from 'lucide-react'
 import FollowButton from '../follow/components/FollowButton'
 import UserProfilePosts from './components/UserPosts'
+import { UserData } from '@/types'
 
 interface UserViewProps {
   user: UserData
@@ -62,7 +62,7 @@ const UserView = ({ user, loggedInUserId }: UserViewProps) => {
       <div className='flex w-full flex-col gap-y-5'>
         <div className='rounded-2xl bg-card p-5 shadow-sm'>
           <h2 className='text-center text-2xl font-bold'>
-            {user.displayName}'s Posts ({formatNumber(user._count.posts)})
+            {user.displayName}&apos;s Posts ({formatNumber(user._count.posts)})
           </h2>
         </div>
         <UserProfilePosts userId={user.id} />
