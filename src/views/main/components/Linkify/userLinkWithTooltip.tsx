@@ -16,7 +16,8 @@ const UserLinkWithTooltip = ({ username, children }: UserLinkWithTooltipProps) =
     queryFn: () => kyInstance.get(`/api/users/username/${username}`).json<UserData>(),
     retry(failureCount, error) {
       return !(error instanceof HTTPError && error.response.status === 404) && failureCount < 3
-    }
+    },
+    staleTime: Infinity
   })
 
   if (!data)
