@@ -5,9 +5,9 @@ import { UploadThingError, UTApi } from 'uploadthing/server'
 
 const f = createUploadthing()
 
-export const fileRoute = {
+export const fileRouter = {
   avatar: f({ image: { maxFileSize: '4MB' } })
-    .middleware(async ({ req }) => {
+    .middleware(async () => {
       // This code runs on your server before upload
       const { user } = await validateRequest()
 
@@ -18,13 +18,12 @@ export const fileRoute = {
       return { user }
     })
     .onUploadComplete(async ({ metadata, file }) => {
+      const baseUrl = `/a/${process.env.NEXT_PUBLIC_UPLOADTHING_APP_ID}/` //
       const oldAvatarUrl = metadata.user.avatarUrl
 
-      if (oldAvatarUrl) {
-        await new UTApi().deleteFiles(oldAvatarUrl.split(`/a/${process.env.NEXT_PUBLIC_UPLOADTHING_APP_ID}/`)[1])
-      }
+      if (oldAvatarUrl) await new UTApi().deleteFiles(oldAvatarUrl.split(baseUrl)[1])
 
-      const newAvatarUrl = file.url.replace('/f/', `/a/${process.env.NEXT_PUBLIC_UPLOADTHING_APP_ID}/`)
+      const newAvatarUrl = file.url.replace('/f/', baseUrl)
 
       await prisma.user.update({
         where: { id: metadata.user.id },
@@ -35,4 +34,4 @@ export const fileRoute = {
     })
 } satisfies FileRouter
 
-export type AppFileRouter = typeof fileRoute
+export type AppFileRouter = typeof fileRouter

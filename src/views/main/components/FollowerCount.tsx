@@ -1,7 +1,7 @@
 'use client'
 import { FollowerInfo } from '@/lib/types'
 import { formatNumber } from '@/lib/utils'
-import useFollower from '@/views/main/follow/hook/useFollower'
+import useFollower from '@/views/main/hooks/useFollower'
 
 interface FollowerCountProps {
   userId: string
