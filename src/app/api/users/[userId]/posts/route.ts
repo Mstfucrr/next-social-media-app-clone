@@ -1,7 +1,6 @@
 // src/app/api/users/[userId]/posts/route.ts
 
 import prisma from '@/lib/prisma'
-import { FollowerInfo } from '@/lib/types'
 import { validateRequest } from '@/views/auth/lib/auth'
 import { PostsPage } from '@/views/main/posts/types'
 import { getPostDataInclude } from '@/views/main/posts/utils'
