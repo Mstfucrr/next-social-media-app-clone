@@ -26,7 +26,7 @@ async function WhoToFollow() {
       <h1 className='text-xl font-bold'>Who to follow</h1>
       {usersToFollow.map(user => (
         <div className='flex items-center justify-between gap-3' key={user.id}>
-          <UserTooltip user={user} loogedInUserId={loggedInUser.id}>
+          <UserTooltip user={user}>
             <Link href={`/users/${user.username}`} className='flex items-center gap-3'>
               <UserAvatar avatarUrl={user.avatarUrl} className='float-none' />
               <div>

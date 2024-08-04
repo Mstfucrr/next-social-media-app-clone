@@ -1,3 +1,4 @@
+'use client'
 import { FollowerInfo } from '@/lib/types'
 import { UserData } from '@/types'
 import { PropsWithChildren } from 'react'
@@ -7,16 +8,17 @@ import { TooltipProvider } from '@radix-ui/react-tooltip'
 import Linkify from '../Linkify'
 import FollowButton from '../../follow/components/FollowButton'
 import FollowerCount from '../FollowerCount'
+import useSession from '../../hooks/useSession'
 
 interface UserTooltipProps extends PropsWithChildren {
   user: UserData
-  loogedInUserId: string
 }
 
-export default function UserTooltip({ user, loogedInUserId, children }: UserTooltipProps) {
+export default function UserTooltip({ user, children }: UserTooltipProps) {
+  const { user: loogedInUser } = useSession()
   const followerState: FollowerInfo = {
     followers: user._count.followers,
-    isFollowdUser: !!user.followers.some(follower => follower.followerId === loogedInUserId)
+    isFollowdUser: !!user.followers.some(follower => follower.followerId === loogedInUser.id)
   }
 
   return (
@@ -31,7 +33,7 @@ export default function UserTooltip({ user, loogedInUserId, children }: UserTool
                 <h4 className='text-sm font-semibold'>{user.displayName}</h4>
                 <span className='text-sm'>@{user.username}</span>
               </div>
-              {user.id !== loogedInUserId && (
+              {user.id !== loogedInUser.id && (
                 <div className='ml-auto'>
                   <FollowButton userId={user.id} initialState={followerState} />
                 </div>

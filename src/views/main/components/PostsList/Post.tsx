@@ -13,7 +13,7 @@ type PostProps = {
 }
 
 export default function Post({ post }: PostProps) {
-  const { user } = useSession()
+  const { user: loggedInUser } = useSession()
 
   return (
     <article className='group/post space-y-3 rounded-2xl bg-card p-5 shadow-sm'>
@@ -23,7 +23,7 @@ export default function Post({ post }: PostProps) {
             <UserAvatar avatarUrl={post.user.avatarUrl} />
           </Link>
           <div>
-            <UserTooltip user={post.user} loogedInUserId={user.id}>
+            <UserTooltip user={post.user}>
               <Link href={`/users/${post.user.username}`} className='block font-medium hover:underline'>
                 {post.user.displayName}
               </Link>
@@ -33,7 +33,7 @@ export default function Post({ post }: PostProps) {
             </Link>
           </div>
         </div>
-        {user?.id === post.user.id && (
+        {loggedInUser?.id === post.user.id && (
           <PostMoreButton
             post={post}
             className='opacity-0 transition-opacity duration-300 group-hover/post:opacity-100'
