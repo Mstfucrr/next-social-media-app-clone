@@ -1,7 +1,7 @@
 import Image, { StaticImageData } from 'next/image'
 import { useRef, useState } from 'react'
 import { Button } from '@/components/ui/button'
-import { PencilIcon } from 'lucide-react'
+import { PencilIcon, Trash2 } from 'lucide-react'
 import Resizer from 'react-image-file-resizer'
 import CropImageDialog from './CropImageDialog'
 
@@ -17,8 +17,12 @@ export default function AvatarInput({ src, onImageCropped }: AvatarInputProps) {
 
   const onImageSelected = (image: File | undefined) => {
     if (!image) return
-    setImageToCrop(image)
-    Resizer.imageFileResizer(image, 1024, 1024, 'WEBP', 100, 0, uri => onImageCropped(uri as File), 'file')
+    Resizer.imageFileResizer(image, 1024, 1024, 'WEBP', 100, 0, uri => setImageToCrop(uri as File), 'file')
+  }
+
+  const clearImage = () => {
+    setImageToCrop(undefined)
+    onImageCropped(null)
   }
 
   return (
@@ -35,12 +39,12 @@ export default function AvatarInput({ src, onImageCropped }: AvatarInputProps) {
           alt='avatar'
           width={48}
           height={48}
-          src={imageToCrop ? URL.createObjectURL(imageToCrop) : typeof src === 'string' ? src : src.src}
+          src={src}
           className='mx-auto !size-full origin-center rounded-full object-cover'
         />
         <Button
           type='button'
-          className='absolute bottom-0 right-0 rounded-full hover:bg-transparent'
+          className='absolute bottom-0 right-0 size-auto rounded-full hover:bg-transparent'
           variant='ghost'
           onClick={() => fileInputRef.current?.click()}
         >
@@ -48,6 +52,18 @@ export default function AvatarInput({ src, onImageCropped }: AvatarInputProps) {
             <PencilIcon className='!size-10' />
           </div>
         </Button>
+        {typeof src === 'string' && src.startsWith('blob:') && (
+          <Button
+            type='button'
+            className='absolute right-0 top-0 size-auto rounded-full hover:bg-transparent'
+            variant='ghost'
+            onClick={clearImage}
+          >
+            <div className='rounded-full bg-white p-2 text-red-500 transition-all duration-300 hover:bg-primary hover:text-white'>
+              <Trash2 className='!size-7' />
+            </div>
+          </Button>
+        )}
         {imageToCrop && (
           <CropImageDialog
             src={URL.createObjectURL(imageToCrop)}
