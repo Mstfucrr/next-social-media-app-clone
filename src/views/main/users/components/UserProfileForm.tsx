@@ -67,7 +67,13 @@ const UserProfileForm = ({ user, handleDeactiveEdit }: UserProfileFormProps) => 
         />
 
         <div className='flex justify-end space-x-2'>
-          <Button type='button' variant='secondary' onClick={handleDeactiveEdit}>
+          <Button
+            type='button'
+            variant='secondary'
+            onClick={handleDeactiveEdit}
+            disabled={(!form.formState.isDirty && !croppedAvatar) || isPending}
+            className='disabled:opacity-50'
+          >
             Cancel
           </Button>
           <LoadingButton isLoading={isPending} type='submit'>
