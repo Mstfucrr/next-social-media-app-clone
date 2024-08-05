@@ -1,7 +1,5 @@
 import { UserData } from '@/types'
 import React, { useState } from 'react'
-import UserAvatar from '../../components/UserAvatar'
-import { PencilIcon } from 'lucide-react'
 import { useForm } from 'react-hook-form'
 import { UpdateUserProfileValues, updateUserProfileSchema } from '@/views/auth/lib/validation'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -23,7 +21,7 @@ const UserProfileForm = ({ user, handleDeactiveEdit }: UserProfileFormProps) => 
     resolver: zodResolver(updateUserProfileSchema),
     defaultValues: {
       displayName: user.displayName,
-      bio: user.bio || ''
+      bio: user.bio ?? ''
     }
   })
 
@@ -33,7 +31,6 @@ const UserProfileForm = ({ user, handleDeactiveEdit }: UserProfileFormProps) => 
   const onSubmit = (values: UpdateUserProfileValues) => {
     const newAvatarFile = croppedAvatar ? new File([croppedAvatar], `avatar-${user.id}.png`) : undefined
 
-    console.log('newAvatarFile', newAvatarFile)
     handleUpdateUser(
       { values, avatar: newAvatarFile },
       {
