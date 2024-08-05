@@ -1,9 +1,7 @@
 import Image, { StaticImageData } from 'next/image'
 import { useRef, useState } from 'react'
-import UserAvatar from '../../components/UserAvatar'
 import { Button } from '@/components/ui/button'
 import { PencilIcon } from 'lucide-react'
-import CropImageDialog from './CropImageDialog'
 import Resizer from 'react-image-file-resizer'
 
 interface AvatarInputProps {
@@ -16,15 +14,10 @@ export default function AvatarInput({ src, onImageCropped }: AvatarInputProps) {
 
   const fileInputRef = useRef<HTMLInputElement>(null)
 
-  const onImageCroppedHandler = (blob: Blob | null) => {
-    console.log('blobss', blob)
-    onImageCropped(blob)
-  }
-
   const onImageSelected = (image: File | undefined) => {
     if (!image) return
     setImageToCrop(image)
-    Resizer.imageFileResizer(image, 1024, 1024, 'WEBP', 100, 0, uri => onImageCroppedHandler(uri as File), 'file')
+    Resizer.imageFileResizer(image, 1024, 1024, 'WEBP', 100, 0, uri => onImageCropped(uri as File), 'file')
   }
 
   return (
