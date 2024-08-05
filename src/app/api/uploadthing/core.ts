@@ -6,7 +6,7 @@ import { UploadThingError, UTApi } from 'uploadthing/server'
 const f = createUploadthing()
 
 export const fileRouter = {
-  avatar: f({ image: { maxFileSize: '4MB' } })
+  avatar: f({ image: { maxFileSize: '512KB' } })
     .middleware(async () => {
       // This code runs on your server before upload
       const { user } = await validateRequest()
