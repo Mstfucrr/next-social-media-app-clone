@@ -6,7 +6,7 @@ import { Tooltip, TooltipTrigger, TooltipContent } from '@/components/ui/tooltip
 import UserAvatar from '../UserAvatar'
 import { TooltipProvider } from '@radix-ui/react-tooltip'
 import Linkify from '../Linkify'
-import FollowButton from '../../follow/components/FollowButton'
+import FollowButton from '../FollowButton'
 import FollowerCount from '../FollowerCount'
 import useSession from '../../hooks/useSession'
 
@@ -39,13 +39,9 @@ export default function UserTooltip({ user, children }: UserTooltipProps) {
                 </div>
               )}
             </div>
-            {!user.bio && (
+            {user.bio && (
               <Linkify>
-                {/* <p className='text-sm'>{user.bio.length > 100 ? `${user.bio.slice(0, 100)}...` : user.bio}</p> */}
-                <p className='text-sm'>
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Ea repellendus facilis praesentium at
-                  reiciendis sapiente commodi ad nihil? Mollitia, error!
-                </p>
+                <p className='text-sm'>{user.bio.length > 100 ? `${user.bio.slice(0, 100)}...` : user.bio}</p>
               </Linkify>
             )}
 

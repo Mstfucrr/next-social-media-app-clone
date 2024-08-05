@@ -1,6 +1,8 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@import '~react-toastify/dist/ReactToastify.min.css';
+@import 'cropperjs/dist/cropper.css';
 
 @layer base {
   :root {

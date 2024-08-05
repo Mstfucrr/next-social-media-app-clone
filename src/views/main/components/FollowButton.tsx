@@ -1,6 +1,6 @@
 'use client'
 import { FollowerInfo } from '@/lib/types'
-import useFollower from '../hook/useFollower'
+import useFollower from '../hooks/useFollower'
 import LoadingButton from '@/components/ui/loadingButton'
 
 interface FollowButtonProps {

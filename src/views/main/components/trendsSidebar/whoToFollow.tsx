@@ -3,7 +3,7 @@ import { validateRequest } from '@/views/auth/lib/auth'
 import Link from 'next/link'
 import React from 'react'
 import UserAvatar from '../UserAvatar'
-import FollowButton from '@/views/main/follow/components/FollowButton'
+import FollowButton from '@/views/main/components/FollowButton'
 import { getUserDataSelect } from '@/utils/getInclude'
 import UserTooltip from '../UserTooltip'
 
