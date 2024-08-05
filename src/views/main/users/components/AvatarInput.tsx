@@ -3,6 +3,7 @@ import { useRef, useState } from 'react'
 import { Button } from '@/components/ui/button'
 import { PencilIcon } from 'lucide-react'
 import Resizer from 'react-image-file-resizer'
+import CropImageDialog from './CropImageDialog'
 
 interface AvatarInputProps {
   src: string | StaticImageData
@@ -47,7 +48,7 @@ export default function AvatarInput({ src, onImageCropped }: AvatarInputProps) {
             <PencilIcon className='!size-10' />
           </div>
         </Button>
-        {/* {imageToCrop && (
+        {imageToCrop && (
           <CropImageDialog
             src={URL.createObjectURL(imageToCrop)}
             cropAspectRatio={1}
@@ -59,7 +60,7 @@ export default function AvatarInput({ src, onImageCropped }: AvatarInputProps) {
               }
             }}
           />
-        )} */}
+        )}
       </div>
     </>
   )
