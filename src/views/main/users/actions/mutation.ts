@@ -18,6 +18,7 @@ export const useUpdateUserProfile = () => {
       return Promise.all([updateUserProfile(values), avatar && startAvatarUpload([avatar])])
     },
     onSuccess: async ([updatedUser, uploadResult]) => {
+      console.log('onSuccess', updatedUser, uploadResult)
       const newAvatarUrl = uploadResult?.[0]?.serverData.avatarUrl
 
       const queryFilter: QueryFilters = {

@@ -3,12 +3,12 @@ import { UserData } from '@/types'
 import { PencilIcon } from 'lucide-react'
 
 interface EditProfileButtonProps {
-  user: UserData
+  onClick: () => void
 }
 
-const EditProfileButton = ({ user }: EditProfileButtonProps) => {
+const EditProfileButton = ({ onClick }: EditProfileButtonProps) => {
   return (
-    <Button variant='secondary'>
+    <Button variant='secondary' onClick={onClick}>
       <PencilIcon className='!mr-2' size={15} />
       Edit Profile
     </Button>
