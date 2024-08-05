@@ -3,11 +3,10 @@ import localFont from 'next/font/local'
 import './globals.css'
 import { ThemeProvider } from 'next-themes'
 import ReactQueryProvider from '@/app/ReactQueryProvider'
-import 'react-toastify/dist/ReactToastify.css'
 import { ToastContainer } from 'react-toastify'
 import { NextSSRPlugin } from '@uploadthing/react/next-ssr-plugin'
 import { extractRouterConfig } from 'uploadthing/server'
-import { fileRouter } from './api/users/uploadthing/core'
+import { fileRouter } from './api/uploadthing/core'
 
 const geistSans = localFont({
   src: './fonts/GeistVF.woff',
