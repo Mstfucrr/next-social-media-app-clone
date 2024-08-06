@@ -1,12 +1,15 @@
 'use client'
 import LoadingButton from '@/components/ui/loadingButton'
 import { Progress } from '@/components/ui/progress'
+import { cn } from '@/lib/utils'
 import UserAvatar from '@/views/main/components/UserAvatar'
 import useSession from '@/views/main/hooks/useSession'
 import Placeholder from '@tiptap/extension-placeholder'
 import { EditorContent, useEditor } from '@tiptap/react'
 import StarterKit from '@tiptap/starter-kit'
+import { useDropzone } from '@uploadthing/react'
 import { Loader2 } from 'lucide-react'
+import { ClipboardEvent } from 'react'
 import AddAttachmentButton from '../components/AddAttachmentButton'
 import { AttachmentPreviews } from '../components/AttachmentPreview'
 import useSubmitPostMutation from './actions/mutation'
@@ -25,6 +28,10 @@ export default function PostEditor() {
     reset: resetMediaUploads,
     uploadProgress
   } = useMediaUpload()
+
+  const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop: startUpload })
+
+  const { onClick, ...rootProps } = getRootProps()
 
   const editor = useEditor({
     extensions: [
@@ -57,14 +64,29 @@ export default function PostEditor() {
     )
   }
 
+  const onPaste = (e: ClipboardEvent<HTMLInputElement>) => {
+    const files = Array.from(e.clipboardData.items)
+      .filter(item => item.kind === 'file')
+      .map(item => item.getAsFile()) as File[]
+
+    startUpload(files)
+  }
+
   return (
     <div className='flex flex-col gap-5 rounded-2xl bg-card p-5 shadow-sm'>
       <div className='flex w-full gap-5'>
         <UserAvatar avatarUrl={user.avatarUrl} className='hidden sm:inline' />
-        <EditorContent
-          editor={editor}
-          className='max-h-80 w-full overflow-y-auto rounded-2xl bg-background px-5 py-3'
-        />
+        <div {...rootProps} className='w-full'>
+          <EditorContent
+            editor={editor}
+            className={cn(
+              'max-h-80 w-full overflow-y-auto rounded-2xl bg-background px-5 py-3',
+              isDragActive && 'outline-dashed'
+            )}
+            onPaste={onPaste}
+          />
+          <input {...getInputProps()} />
+        </div>
       </div>
       {!!attachments.length && (
         <AttachmentPreviews attachments={attachments} removeAttachment={removeAttachment} />
