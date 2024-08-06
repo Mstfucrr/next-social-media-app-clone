@@ -60,6 +60,7 @@
     "eslint-plugin-project-structure": "^2.0.17",
     "postcss": "^8.4.40",
     "prettier": "^3.3.3",
+    "prettier-plugin-organize-imports": "^4.0.0",
     "prettier-plugin-tailwindcss": "^0.6.5",
     "tailwindcss": "^3.4.7",
     "typescript": "^5.5.4",
