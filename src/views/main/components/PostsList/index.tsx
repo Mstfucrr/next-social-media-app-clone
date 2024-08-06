@@ -1,11 +1,11 @@
 'use client'
 
 import Post from '@/views/main/components/PostsList/Post'
+import { PostsPage } from '@/views/main/posts/types'
+import { InfiniteData, UseInfiniteQueryResult } from '@tanstack/react-query'
+import { Loader2 } from 'lucide-react'
 import InfiniteScrollContainer from './InfiniteScrollContainer'
 import PostSkeleton from './PostSkeleton'
-import { InfiniteData, UseInfiniteQueryResult } from '@tanstack/react-query'
-import { PostsPage } from '@/views/main/posts/types'
-import { Loader2 } from 'lucide-react'
 
 interface PostsListProps {
   queryResult: UseInfiniteQueryResult<InfiniteData<PostsPage, unknown>, Error>

@@ -1,8 +1,8 @@
 'use server'
 
+import prisma from '@/lib/prisma'
 import { validateRequest } from '@/views/auth/lib/auth'
 import { createPostSchema } from '../../lib/validation'
-import prisma from '@/lib/prisma'
 import { getPostDataInclude } from '../../utils'
 
 export async function submitPost(input: string) {

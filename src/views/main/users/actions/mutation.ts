@@ -1,9 +1,9 @@
-import { InfiniteData, QueryFilters, useMutation, useQueryClient } from '@tanstack/react-query'
-import { updateUserProfile } from '.'
-import { toast } from 'react-toastify'
-import { useRouter } from 'next/navigation'
 import { useUploadThing } from '@/lib/uploadthing'
 import { UpdateUserProfileValues } from '@/views/auth/lib/validation'
+import { InfiniteData, QueryFilters, useMutation, useQueryClient } from '@tanstack/react-query'
+import { useRouter } from 'next/navigation'
+import { toast } from 'react-toastify'
+import { updateUserProfile } from '.'
 import { PostsPage } from '../../posts/types'
 
 export const useUpdateUserProfile = () => {

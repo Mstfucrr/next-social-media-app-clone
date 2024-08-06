@@ -1,5 +1,4 @@
 import { Button } from '@/components/ui/button'
-import { UserData } from '@/types'
 import { PencilIcon } from 'lucide-react'
 
 interface EditProfileButtonProps {

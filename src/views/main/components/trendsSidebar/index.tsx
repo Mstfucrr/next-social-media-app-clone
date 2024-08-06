@@ -1,6 +1,5 @@
 import { Loader2 } from 'lucide-react'
 import dynamic from 'next/dynamic'
-import React from 'react'
 
 const WhoToFollow = dynamic(() => import('./whoToFollow'), {
   ssr: false,

@@ -1,7 +1,6 @@
-import React from 'react'
-import LoginForm from './components/loginForm'
-import Link from 'next/link'
 import CustomImage from '@/components/image'
+import Link from 'next/link'
+import LoginForm from './components/loginForm'
 
 const LoginView = () => {
   return (

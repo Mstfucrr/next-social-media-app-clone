@@ -1,8 +1,8 @@
 import { Button } from '@/components/ui/button'
 import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog'
-import { useRef } from 'react'
-import { ReactCropperElement, Cropper } from 'react-cropper'
 import * as DialogPrimitive from '@radix-ui/react-dialog'
+import { useRef } from 'react'
+import { Cropper, ReactCropperElement } from 'react-cropper'
 
 interface CropImageDialogProps extends DialogPrimitive.DialogProps {
   src: string

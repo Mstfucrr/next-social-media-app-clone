@@ -1,3 +1,4 @@
+import { Button } from '@/components/ui/button'
 import {
   Dialog,
   DialogContent,
@@ -6,10 +7,9 @@ import {
   DialogHeader,
   DialogTitle
 } from '@/components/ui/dialog'
-import { PostData } from '../types'
 import LoadingButton from '@/components/ui/loadingButton'
-import { Button } from '@/components/ui/button'
 import usePostOperations from '../../hooks/usePostOperations'
+import { PostData } from '../types'
 
 interface DeletePostDialogProps {
   post: PostData

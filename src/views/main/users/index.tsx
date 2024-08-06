@@ -1,9 +1,8 @@
-import React from 'react'
 import { formatNumber } from '@/lib/utils'
-import UserProfilePosts from './components/UserPosts'
 import { UserData } from '@/types'
-import UserProfile from './components/UserProfile'
 import TrendsSidebar from '../components/trendsSidebar'
+import UserProfilePosts from './components/UserPosts'
+import UserProfile from './components/UserProfile'
 
 interface UserViewProps {
   user: UserData

@@ -1,14 +1,14 @@
 'use client'
+import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip'
 import { FollowerInfo } from '@/lib/types'
 import { UserData } from '@/types'
-import { PropsWithChildren } from 'react'
-import { Tooltip, TooltipTrigger, TooltipContent } from '@/components/ui/tooltip'
-import UserAvatar from '../UserAvatar'
 import { TooltipProvider } from '@radix-ui/react-tooltip'
-import Linkify from '../Linkify'
+import { PropsWithChildren } from 'react'
+import useSession from '../../hooks/useSession'
 import FollowButton from '../FollowButton'
 import FollowerCount from '../FollowerCount'
-import useSession from '../../hooks/useSession'
+import Linkify from '../Linkify'
+import UserAvatar from '../UserAvatar'
 
 interface UserTooltipProps extends PropsWithChildren {
   user: UserData

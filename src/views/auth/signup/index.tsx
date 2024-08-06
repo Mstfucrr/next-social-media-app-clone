@@ -1,7 +1,6 @@
-import React from 'react'
-import SignupForm from './components/signupForm'
-import Link from 'next/link'
 import CustomImage from '@/components/image'
+import Link from 'next/link'
+import SignupForm from './components/signupForm'
 
 const SignupView = () => {
   return (

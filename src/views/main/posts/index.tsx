@@ -1,9 +1,8 @@
-import React from 'react'
-import PostEditor from './editor/PostEditor'
-import ForYouFeed from './components/ForYouFeed'
-import { Tabs, TabsList, TabsContent, TabsTrigger } from '@/components/ui/tabs'
-import FollowingFeed from './components/FollowingFeed'
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import TrendsSidebar from '../components/trendsSidebar'
+import FollowingFeed from './components/FollowingFeed'
+import ForYouFeed from './components/ForYouFeed'
+import PostEditor from './editor/PostEditor'
 
 export default function PostView() {
   return (

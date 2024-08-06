@@ -1,5 +1,5 @@
-import React from 'react'
 import Link from 'next/link'
+import React from 'react'
 import { LinkIt, LinkItUrl } from 'react-linkify-it'
 import UserLinkWithTooltip from './userLinkWithTooltip'
 

@@ -2,20 +2,20 @@
 
 import {
   DropdownMenu,
-  DropdownMenuTrigger,
   DropdownMenuContent,
+  DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuSeparator,
-  DropdownMenuItem
+  DropdownMenuTrigger
 } from '@/components/ui/dropdown-menu'
+import { cn } from '@/lib/utils'
+import { logout } from '@/views/auth/actions'
+import { useQueryClient } from '@tanstack/react-query'
+import { LogOutIcon, UserIcon } from 'lucide-react'
+import Link from 'next/link'
 import useSession from '../../hooks/useSession'
 import UserAvatar from '../UserAvatar'
-import Link from 'next/link'
-import { LogOutIcon, UserIcon } from 'lucide-react'
-import { logout } from '@/views/auth/actions'
-import { cn } from '@/lib/utils'
 import ThemeMenu from './ThemeMenu'
-import { useQueryClient } from '@tanstack/react-query'
 
 interface UserButtonProps {
   className?: string

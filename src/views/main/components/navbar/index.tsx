@@ -1,6 +1,6 @@
 import Link from 'next/link'
-import UserButton from './UserButton'
 import SearchField from './SearchField'
+import UserButton from './UserButton'
 
 export default function Navbar() {
   return (

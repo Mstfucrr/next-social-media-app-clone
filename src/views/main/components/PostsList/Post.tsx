@@ -1,11 +1,11 @@
 'use client'
-import Link from 'next/link'
-import { PostData } from '../../posts/types'
-import UserAvatar from '@/views/main/components/UserAvatar'
 import { formatRelativeDate } from '@/lib/utils'
-import useSession from '@/views/main/hooks/useSession'
-import PostMoreButton from '../../posts/components/PostMoreButton'
 import Linkify from '@/views/main/components/Linkify'
+import UserAvatar from '@/views/main/components/UserAvatar'
+import useSession from '@/views/main/hooks/useSession'
+import Link from 'next/link'
+import PostMoreButton from '../../posts/components/PostMoreButton'
+import { PostData } from '../../posts/types'
 import UserTooltip from '../UserTooltip'
 
 type PostProps = {

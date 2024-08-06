@@ -2,7 +2,6 @@ import prisma from '@/lib/prisma'
 import { formatNumber } from '@/lib/utils'
 import { unstable_cache } from 'next/cache'
 import Link from 'next/link'
-import React from 'react'
 
 const getTrendingTopics = unstable_cache(
   async () => {

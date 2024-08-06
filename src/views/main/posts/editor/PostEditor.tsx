@@ -1,10 +1,10 @@
 'use client'
-import { useEditor, EditorContent } from '@tiptap/react'
-import StarterKit from '@tiptap/starter-kit'
-import Placeholder from '@tiptap/extension-placeholder'
+import LoadingButton from '@/components/ui/loadingButton'
 import UserAvatar from '@/views/main/components/UserAvatar'
 import useSession from '@/views/main/hooks/useSession'
-import LoadingButton from '@/components/ui/loadingButton'
+import Placeholder from '@tiptap/extension-placeholder'
+import { EditorContent, useEditor } from '@tiptap/react'
+import StarterKit from '@tiptap/starter-kit'
 import useSubmitPostMutation from './actions/mutation'
 
 export default function PostEditor() {

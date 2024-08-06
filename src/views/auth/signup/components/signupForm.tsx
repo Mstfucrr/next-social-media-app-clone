@@ -1,13 +1,13 @@
 'use client'
 
-import React, { useState, useTransition } from 'react'
-import { useForm } from 'react-hook-form'
-import { SignUpValues, signUpschema } from '../../lib/validation'
-import { zodResolver } from '@hookform/resolvers/zod'
 import { Form } from '@/components/ui/form'
 import FormInput from '@/components/ui/FormTextInput'
-import { signup } from '../actions'
 import LoadingButton from '@/components/ui/loadingButton'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { useState, useTransition } from 'react'
+import { useForm } from 'react-hook-form'
+import { SignUpValues, signUpschema } from '../../lib/validation'
+import { signup } from '../actions'
 
 const SignupForm = () => {
   const [error, setError] = useState<string>()

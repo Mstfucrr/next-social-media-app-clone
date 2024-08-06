@@ -1,8 +1,8 @@
 // components/ui/FormInput.tsx
+import { FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
+import { Input } from '@/components/ui/input'
 import React from 'react'
 import { Control, FieldValues, Path } from 'react-hook-form'
-import { FormItem, FormLabel, FormControl, FormMessage, FormField } from '@/components/ui/form'
-import { Input } from '@/components/ui/input'
 import { PasswordInput } from './PasswordInput'
 
 interface IFormTextInputProps<T extends FieldValues> extends React.InputHTMLAttributes<HTMLInputElement> {

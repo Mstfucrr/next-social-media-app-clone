@@ -1,6 +1,5 @@
-import React from 'react'
-import MenuBarItem from './item'
 import { Bell, Bookmark, Home, Mail } from 'lucide-react'
+import MenuBarItem from './item'
 
 type MenuBarProps = {
   className?: string

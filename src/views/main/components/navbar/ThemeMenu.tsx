@@ -1,13 +1,12 @@
 import {
-  DropdownMenuSub,
-  DropdownMenuSubTrigger,
+  DropdownMenuItem,
   DropdownMenuPortal,
+  DropdownMenuSub,
   DropdownMenuSubContent,
-  DropdownMenuItem
+  DropdownMenuSubTrigger
 } from '@/components/ui/dropdown-menu'
-import { Monitor, Check, Sun, Moon } from 'lucide-react'
+import { Check, Monitor, Moon, Sun } from 'lucide-react'
 import { useTheme } from 'next-themes'
-import React from 'react'
 
 const ThemeMenu = () => {
   const { theme, setTheme } = useTheme()

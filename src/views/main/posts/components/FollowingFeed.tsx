@@ -1,7 +1,7 @@
 'use client'
 
-import usePostOperations from '../../hooks/usePostOperations'
 import PostsList from '../../components/PostsList'
+import usePostOperations from '../../hooks/usePostOperations'
 
 export default function FollowingFeed() {
   const { followingFeedQuery } = usePostOperations()

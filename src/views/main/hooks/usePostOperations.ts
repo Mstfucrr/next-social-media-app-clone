@@ -1,9 +1,9 @@
-import { PostsPage } from '../posts/types'
-import { InfiniteData, QueryFilters, useMutation, useQueryClient, useInfiniteQuery } from '@tanstack/react-query'
+import kyInstance from '@/lib/ky'
+import { InfiniteData, QueryFilters, useInfiniteQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { usePathname, useRouter } from 'next/navigation'
 import { toast } from 'react-toastify'
-import kyInstance from '@/lib/ky'
 import { deletePost } from '../posts/actions'
+import { PostsPage } from '../posts/types'
 
 const usePostOperations = () => {
   const queryClient = useQueryClient()

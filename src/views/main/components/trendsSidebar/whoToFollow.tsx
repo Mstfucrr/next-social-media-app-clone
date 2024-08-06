@@ -1,10 +1,9 @@
 import prisma from '@/lib/prisma'
-import { validateRequest } from '@/views/auth/lib/auth'
-import Link from 'next/link'
-import React from 'react'
-import UserAvatar from '../UserAvatar'
-import FollowButton from '@/views/main/components/FollowButton'
 import { getUserDataSelect } from '@/utils/getInclude'
+import { validateRequest } from '@/views/auth/lib/auth'
+import FollowButton from '@/views/main/components/FollowButton'
+import Link from 'next/link'
+import UserAvatar from '../UserAvatar'
 import UserTooltip from '../UserTooltip'
 
 async function WhoToFollow() {
