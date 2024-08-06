@@ -53,11 +53,28 @@ model Follow {
 }
 
 model Post {
-  id        String   @id @default(uuid())
-  content   String
-  userId    String
-  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  createdAt DateTime @default(now())
+  id          String   @id @default(uuid())
+  content     String
+  userId      String
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt   DateTime @default(now())
+  attachments Media[]
 
   @@map("posts")
+}
+
+model Media {
+  id        String    @id @default(uuid())
+  postId    String?
+  post      Post?     @relation(fields: [postId], references: [id], onDelete: SetNull)
+  type      MediaType
+  url       String
+  createdAt DateTime  @default(now())
+
+  @@map("posts_media")
+}
+
+enum MediaType {
+  IMAGE
+  VIDEO
 }
