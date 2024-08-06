@@ -7,6 +7,7 @@ import Link from 'next/link'
 import PostMoreButton from '../../posts/components/PostMoreButton'
 import { PostData } from '../../posts/types'
 import UserTooltip from '../UserTooltip'
+import MediaPreviews from './MediaPreview'
 
 type PostProps = {
   post: PostData
@@ -24,11 +25,17 @@ export default function Post({ post }: PostProps) {
           </Link>
           <div>
             <UserTooltip user={post.user}>
-              <Link href={`/users/${post.user.username}`} className='block font-medium hover:underline'>
+              <Link
+                href={`/users/${post.user.username}`}
+                className='block font-medium hover:underline'
+              >
                 {post.user.displayName}
               </Link>
             </UserTooltip>
-            <Link href={`/posts/${post.id}`} className='block to-muted-foreground text-sm hover:underline'>
+            <Link
+              href={`/posts/${post.id}`}
+              className='block to-muted-foreground text-sm hover:underline'
+            >
               {formatRelativeDate(post.createdAt)}
             </Link>
           </div>
@@ -43,6 +50,7 @@ export default function Post({ post }: PostProps) {
       <Linkify>
         <div className='whitespace-pre-line break-words'>{post.content}</div>
       </Linkify>
+      {!!post.attachments.length && <MediaPreviews attachments={post.attachments} />}
     </article>
   )
 }
