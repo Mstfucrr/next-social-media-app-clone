@@ -35,6 +35,8 @@ export default function Post({ post }: PostProps) {
             <Link
               href={`/posts/${post.id}`}
               className='block to-muted-foreground text-sm hover:underline'
+              suppressHydrationWarning // bu sayede hydration hatası alınmaz
+              // hydration: client-side rendering yaparken, server-side rendering'den gelen verileri kullanarak client-side rendering yapma işlemidir
             >
               {formatRelativeDate(post.createdAt)}
             </Link>
