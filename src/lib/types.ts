@@ -1,4 +1,9 @@
 export interface FollowerInfo {
   followers: number
-  isFollowdUser: boolean
+  isFollowdByUser: boolean
+}
+
+export interface LikeInfo {
+  likes: number
+  isLikedByUser: boolean
 }

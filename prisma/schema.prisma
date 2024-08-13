@@ -29,6 +29,7 @@ model User {
   posts        Post[]
   followers    Follow[]  @relation("Followers")
   following    Follow[]  @relation("Following")
+  likes        Like[]
 
   @@map("users")
 }
@@ -59,6 +60,7 @@ model Post {
   user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   createdAt   DateTime @default(now())
   attachments Media[]
+  likes       Like[]
 
   @@map("posts")
 }
@@ -77,4 +79,14 @@ model Media {
 enum MediaType {
   IMAGE
   VIDEO
+}
+
+model Like {
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  postId String
+  post   Post   @relation(fields: [postId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, postId]) // bu sayede bir posta bir kullanıcı birden fazla like atamaz
+  @@map("likes") // tablo adı
 }
