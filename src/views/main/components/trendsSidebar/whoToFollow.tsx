@@ -38,7 +38,7 @@ async function WhoToFollow() {
             userId={user.id}
             initialState={{
               followers: user._count.followers,
-              isFollowdUser: user.followers.some(({ followerId }) => followerId === user.id)
+              isFollowdByUser: user.followers.some(({ followerId }) => followerId === user.id)
             }}
           />
         </div>

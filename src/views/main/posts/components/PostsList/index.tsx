@@ -1,6 +1,6 @@
 'use client'
 
-import Post from '@/views/main/components/PostsList/Post'
+import Post from '@/views/main/posts/components/PostsList/Post'
 import { PostsPage } from '@/views/main/posts/types'
 import { InfiniteData, UseInfiniteQueryResult } from '@tanstack/react-query'
 import { Loader2 } from 'lucide-react'
@@ -23,7 +23,8 @@ export default function PostsList({ queryResult }: PostsListProps) {
   if (status === 'success' && !posts.length && !hasNextPage)
     return <p className='text-center text-muted-foreground'>No posts found.</p>
 
-  if (status === 'error') return <p className='text-center text-destructive'>An error occured while loading posts.</p>
+  if (status === 'error')
+    return <p className='text-center text-destructive'>An error occured while loading posts.</p>
 
   return (
     <InfiniteScrollContainer

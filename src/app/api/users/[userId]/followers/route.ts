@@ -28,7 +28,7 @@ export async function GET(req: NextRequest, { params }: { params: { userId: stri
 
     const data: FollowerInfo = {
       followers: user._count.followers,
-      isFollowdUser: !!user.followers.length
+      isFollowdByUser: !!user.followers.length
     }
 
     return Response.json({ data })

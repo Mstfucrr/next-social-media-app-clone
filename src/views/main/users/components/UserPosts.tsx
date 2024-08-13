@@ -1,7 +1,7 @@
 'use client'
 
 import usePostOperations from '@/views/main/hooks/usePostOperations'
-import PostsList from '../../components/PostsList'
+import PostsList from '../../posts/components/PostsList'
 
 interface UserPostsProps {
   userId: string

@@ -1,6 +1,6 @@
 'use client'
 
-import PostsList from '../../components/PostsList'
+import PostsList from './PostsList'
 import usePostOperations from '../../hooks/usePostOperations'
 
 export default function FollowingFeed() {
