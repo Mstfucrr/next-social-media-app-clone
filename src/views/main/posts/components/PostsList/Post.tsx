@@ -4,9 +4,10 @@ import Linkify from '@/views/main/components/Linkify'
 import UserAvatar from '@/views/main/components/UserAvatar'
 import useSession from '@/views/main/hooks/useSession'
 import Link from 'next/link'
-import PostMoreButton from '../../posts/components/PostMoreButton'
-import { PostData } from '../../posts/types'
-import UserTooltip from '../UserTooltip'
+import UserTooltip from '../../../components/UserTooltip'
+import { PostData } from '../../types'
+import PostMoreButton from '../PostMoreButton'
+import LikeButton from './LikeButton'
 import MediaPreviews from './MediaPreview'
 
 type PostProps = {
@@ -53,6 +54,17 @@ export default function Post({ post }: PostProps) {
         <div className='whitespace-pre-line break-words'>{post.content}</div>
       </Linkify>
       {!!post.attachments.length && <MediaPreviews attachments={post.attachments} />}
+
+      <hr className='text-muted-foreground' />
+      <div className='flex w-full'>
+        <LikeButton
+          postId={post.id}
+          initialState={{
+            isLikedByUser: post.likes.some(like => like.userId === loggedInUser?.id),
+            likes: post._count.likes
+          }}
+        />
+      </div>
     </article>
   )
 }

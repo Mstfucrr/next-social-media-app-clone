@@ -18,7 +18,7 @@ export default function UserTooltip({ user, children }: UserTooltipProps) {
   const { user: loogedInUser } = useSession()
   const followerState: FollowerInfo = {
     followers: user._count.followers,
-    isFollowdUser: !!user.followers.some(follower => follower.followerId === loogedInUser.id)
+    isFollowdByUser: !!user.followers.some(follower => follower.followerId === loogedInUser.id)
   }
 
   return (

@@ -16,11 +16,11 @@ export default function FollowButton({ userId, initialState }: FollowButtonProps
   return (
     <LoadingButton
       isLoading={isLoading}
-      variant={data.isFollowdUser ? 'secondary' : 'default'}
+      variant={data.isFollowdByUser ? 'secondary' : 'default'}
       disabled={isLoading}
       onClick={handleToggleFollow}
     >
-      {data.isFollowdUser ? 'Unfollow' : 'Follow'}
+      {data.isFollowdByUser ? 'Unfollow' : 'Follow'}
     </LoadingButton>
   )
 }

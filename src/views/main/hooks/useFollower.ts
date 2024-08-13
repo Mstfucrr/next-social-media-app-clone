@@ -19,7 +19,7 @@ export default function useFollower(userId: string, initialState: FollowerInfo) 
 
   const mutation = useMutation({
     mutationFn: () => {
-      return data.isFollowdUser
+      return data.isFollowdByUser
         ? kyInstance.delete(`/api/users/${userId}/followers`)
         : kyInstance.post(`/api/users/${userId}/followers`)
     },
@@ -30,8 +30,8 @@ export default function useFollower(userId: string, initialState: FollowerInfo) 
 
       queryClient.setQueryData<FollowerInfo>(QUERY_KEY, () => ({
         // veriyi güncelle
-        followers: (previousData?.followers ?? 0) + (previousData?.isFollowdUser ? -1 : 1),
-        isFollowdUser: !previousData?.isFollowdUser
+        followers: (previousData?.followers ?? 0) + (previousData?.isFollowdByUser ? -1 : 1),
+        isFollowdByUser: !previousData?.isFollowdByUser
       }))
 
       return { previousData }

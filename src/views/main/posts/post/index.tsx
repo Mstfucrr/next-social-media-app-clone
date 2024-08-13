@@ -1,6 +1,6 @@
 import { Loader2 } from 'lucide-react'
 import dynamic from 'next/dynamic'
-import Post from '../../components/PostsList/Post'
+import Post from '../components/PostsList/Post'
 import { PostData } from '../types'
 
 const UserInfoSidebar = dynamic(() => import('../components/UserInfoSidebar'), {
@@ -18,7 +18,7 @@ interface PostDetailViewProps {
 
 const PostDetailView = ({ post }: PostDetailViewProps) => {
   return (
-    <main className='w-full flex gap-5'>
+    <main className='flex w-full gap-5'>
       <div className='w-full space-y-5'>
         <Post post={post} />
       </div>

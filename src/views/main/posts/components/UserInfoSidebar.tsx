@@ -22,25 +22,21 @@ export default async function UserInfoSidebar({ user }: UserInfoSidebarProps) {
         <Link href={`/users/${user.username}`} className='flex items-center gap-3'>
           <UserAvatar avatarUrl={user.avatarUrl} className='flex-none' />
           <div>
-            <span className='line-clamp-1 break-all font-semibold hover:underline'>
-              {user.displayName}
-            </span>
+            <span className='line-clamp-1 break-all font-semibold hover:underline'>{user.displayName}</span>
             <span className='line-clamp-1 break-all text-muted-foreground'>@{user.username}</span>
           </div>
         </Link>
       </UserTooltip>
 
       <Linkify>
-        <p className='line-clamp-6 whitespace-pre-line break-words text-muted-foreground'>
-          {user.bio}
-        </p>
+        <p className='line-clamp-6 whitespace-pre-line break-words text-muted-foreground'>{user.bio}</p>
       </Linkify>
 
       {user.id !== loggedInUser.id && (
         <FollowButton
           initialState={{
             followers: user._count.followers,
-            isFollowdUser: user.followers.some(follower => follower.followerId === loggedInUser.id)
+            isFollowdByUser: user.followers.some(follower => follower.followerId === loggedInUser.id)
           }}
           userId={user.id}
         />

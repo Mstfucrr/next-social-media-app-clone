@@ -19,7 +19,7 @@ interface UserProfileProps {
 const UserProfile = ({ user, loggedInUserId }: UserProfileProps) => {
   const followerInfo: FollowerInfo = {
     followers: user._count.followers,
-    isFollowdUser: user.followers.some(follower => follower.followerId === loggedInUserId)
+    isFollowdByUser: user.followers.some(follower => follower.followerId === loggedInUserId)
   }
 
   const [activeEdit, setActiveEdit] = useState(false)
