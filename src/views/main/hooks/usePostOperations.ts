@@ -1,5 +1,11 @@
 import kyInstance from '@/lib/ky'
-import { InfiniteData, QueryFilters, useInfiniteQuery, useMutation, useQueryClient } from '@tanstack/react-query'
+import {
+  InfiniteData,
+  QueryFilters,
+  useInfiniteQuery,
+  useMutation,
+  useQueryClient
+} from '@tanstack/react-query'
 import { usePathname, useRouter } from 'next/navigation'
 import { toast } from 'react-toastify'
 import { deletePost } from '../posts/actions'
@@ -31,7 +37,8 @@ const usePostOperations = () => {
 
       toast.success('Post deleted', { autoClose: 2000 })
 
-      if (pathName === `/posts/${deletedPost.id}`) router.push(`/users/${deletedPost.user.username}`)
+      if (pathName === `/posts/${deletedPost.id}`)
+        router.push(`/users/${deletedPost.user.username}`)
     },
     onError(error) {
       console.error(error)
@@ -42,7 +49,9 @@ const usePostOperations = () => {
   const forYouFeedQuery = useInfiniteQuery({
     queryKey: ['post-feed', 'for-you'],
     queryFn: async ({ pageParam }) =>
-      kyInstance.get('/api/posts/for-you', pageParam ? { searchParams: { cursor: pageParam } } : {}).json<PostsPage>(),
+      kyInstance
+        .get('/api/posts/for-you', pageParam ? { searchParams: { cursor: pageParam } } : {})
+        .json<PostsPage>(),
     initialPageParam: null as string | null,
     getNextPageParam: lastPage => lastPage.nextCursor
   })
@@ -52,7 +61,10 @@ const usePostOperations = () => {
       queryKey: ['post-feed', 'user-posts', userId],
       queryFn: async ({ pageParam }) =>
         kyInstance
-          .get(`/api/users/${userId}/posts`, pageParam ? { searchParams: { cursor: pageParam } } : {})
+          .get(
+            `/api/users/${userId}/posts`,
+            pageParam ? { searchParams: { cursor: pageParam } } : {}
+          )
           .json<PostsPage>(),
       initialPageParam: null as string | null,
       getNextPageParam: lastPage => lastPage.nextCursor
@@ -68,7 +80,17 @@ const usePostOperations = () => {
     getNextPageParam: lastPage => lastPage.nextCursor
   })
 
-  return { deleteMutation, forYouFeedQuery, followingFeedQuery, useUserFeedQuery }
+  const bookmarkedQuery = useInfiniteQuery({
+    queryKey: ['post-feed', 'bookmarks'],
+    queryFn: async ({ pageParam }) =>
+      kyInstance
+        .get('/api/posts/bookmarked', pageParam ? { searchParams: { cursor: pageParam } } : {})
+        .json<PostsPage>(),
+    initialPageParam: null as string | null,
+    getNextPageParam: lastPage => lastPage.nextCursor
+  })
+
+  return { deleteMutation, forYouFeedQuery, followingFeedQuery, useUserFeedQuery, bookmarkedQuery }
 }
 
 export default usePostOperations

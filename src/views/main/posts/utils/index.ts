@@ -11,6 +11,10 @@ export function getPostDataInclude(loggedInUserId: string) {
       where: { userId: loggedInUserId },
       select: { userId: true }
     },
+    bookmarks: {
+      where: { userId: loggedInUserId },
+      select: { userId: true }
+    },
     _count: { select: { likes: true } }
   } satisfies Prisma.PostInclude
 }

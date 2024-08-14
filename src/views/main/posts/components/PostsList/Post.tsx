@@ -7,6 +7,7 @@ import Link from 'next/link'
 import UserTooltip from '../../../components/UserTooltip'
 import { PostData } from '../../types'
 import PostMoreButton from '../PostMoreButton'
+import BookmarkButton from './BookmarkButton'
 import LikeButton from './LikeButton'
 import MediaPreviews from './MediaPreview'
 
@@ -56,12 +57,20 @@ export default function Post({ post }: PostProps) {
       {!!post.attachments.length && <MediaPreviews attachments={post.attachments} />}
 
       <hr className='text-muted-foreground' />
-      <div className='flex w-full'>
+      <div className='flex w-full gap-5 justify-between items-center'>
         <LikeButton
           postId={post.id}
           initialState={{
             isLikedByUser: post.likes.some(like => like.userId === loggedInUser?.id),
             likes: post._count.likes
+          }}
+        />
+        <BookmarkButton
+          postId={post.id}
+          initialState={{
+            isBookmarkedByUser: post.bookmarks.some(
+              bookmark => bookmark.userId === loggedInUser?.id
+            )
           }}
         />
       </div>
