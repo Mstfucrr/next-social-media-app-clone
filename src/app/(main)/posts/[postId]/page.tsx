@@ -1,7 +1,7 @@
 import prisma from '@/lib/prisma'
 import { validateRequest } from '@/views/auth/lib/auth'
 import PostDetailView from '@/views/main/posts/post'
-import { getPostDataInclude } from '@/views/main/posts/utils'
+import { getPostDataInclude } from '@/views/main/utils'
 import { notFound } from 'next/navigation'
 import { cache } from 'react'
 

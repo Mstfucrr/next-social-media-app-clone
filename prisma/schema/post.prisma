@@ -1,0 +1,60 @@
+model Post {
+    id          String     @id @default(uuid())
+    content     String
+    userId      String
+    user        User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+    createdAt   DateTime   @default(now())
+    attachments Media[]
+    likes       Like[]
+    bookmarks   Bookmark[]
+    comments    Comment[]
+
+    @@map("posts")
+}
+
+model Media {
+    id        String    @id @default(uuid())
+    postId    String?
+    post      Post?     @relation(fields: [postId], references: [id], onDelete: SetNull)
+    type      MediaType
+    url       String
+    createdAt DateTime  @default(now())
+
+    @@map("posts_media")
+}
+
+model Like {
+    userId String
+    user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+    postId String
+    post   Post   @relation(fields: [postId], references: [id], onDelete: Cascade)
+
+    @@unique([userId, postId]) // bu sayede bir posta bir kullanıcı birden fazla like atamaz
+    @@map("likes") // tablo adı
+}
+
+model Bookmark {
+    id     String @id @default(uuid())
+    userId String
+    user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+    postId String
+    post   Post   @relation(fields: [postId], references: [id], onDelete: Cascade)
+
+    createdAt DateTime @default(now())
+
+    @@unique([userId, postId])
+    @@map("bookmarks")
+}
+
+model Comment {
+    id      String @id @default(uuid())
+    content String
+    userId  String
+    user    User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+    postId  String
+    post    Post   @relation(fields: [postId], references: [id], onDelete: Cascade)
+
+    createdAt DateTime @default(now())
+
+    @@map("comments")
+}

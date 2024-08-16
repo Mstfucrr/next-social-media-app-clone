@@ -1,7 +1,8 @@
 import useSession from '@/views/main/hooks/useSession'
 import { InfiniteData, QueryFilters, useMutation, useQueryClient } from '@tanstack/react-query'
 import { toast } from 'react-toastify'
-import { submitPost } from '.'
+
+import { submitPost } from '../../actions'
 import { PostsPage } from '../../types'
 
 export default function useSubmitPostMutation() {

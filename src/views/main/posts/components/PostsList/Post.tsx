@@ -4,8 +4,11 @@ import Linkify from '@/views/main/components/Linkify'
 import UserAvatar from '@/views/main/components/UserAvatar'
 import useSession from '@/views/main/hooks/useSession'
 import Link from 'next/link'
+import { useState } from 'react'
 import UserTooltip from '../../../components/UserTooltip'
 import { PostData } from '../../types'
+import Comments from '../Comments'
+import CommentButton from '../Comments/CommentButton'
 import PostMoreButton from '../PostMoreButton'
 import BookmarkButton from './BookmarkButton'
 import LikeButton from './LikeButton'
@@ -17,6 +20,8 @@ type PostProps = {
 
 export default function Post({ post }: PostProps) {
   const { user: loggedInUser } = useSession()
+
+  const [showComments, setShowComments] = useState(false)
 
   return (
     <article className='group/post space-y-3 rounded-2xl bg-card p-5 shadow-sm'>
@@ -58,13 +63,16 @@ export default function Post({ post }: PostProps) {
 
       <hr className='text-muted-foreground' />
       <div className='flex w-full gap-5 justify-between items-center'>
-        <LikeButton
-          postId={post.id}
-          initialState={{
-            isLikedByUser: post.likes.some(like => like.userId === loggedInUser?.id),
-            likes: post._count.likes
-          }}
-        />
+        <div className='flex items-center gap-5'>
+          <LikeButton
+            postId={post.id}
+            initialState={{
+              isLikedByUser: post.likes.some(like => like.userId === loggedInUser?.id),
+              likes: post._count.likes
+            }}
+          />
+          <CommentButton post={post} onClick={() => setShowComments(!showComments)} />
+        </div>
         <BookmarkButton
           postId={post.id}
           initialState={{
@@ -74,6 +82,7 @@ export default function Post({ post }: PostProps) {
           }}
         />
       </div>
+      {showComments && <Comments post={post} />}
     </article>
   )
 }

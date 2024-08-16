@@ -1,5 +1,5 @@
 import { Prisma } from '@prisma/client'
-import { getPostDataInclude } from '../utils'
+import { getCommentDataInclude, getPostDataInclude } from '../../utils'
 
 export type PostData = Prisma.PostGetPayload<{ include: ReturnType<typeof getPostDataInclude> }>
 
@@ -13,4 +13,13 @@ export interface Attachment {
   file: File // Yüklenen dosya.
   mediaId?: string // Dosyanın sunucuda aldığı kimlik (opsiyonel).
   isUploading: boolean // Dosyanın yüklenip yüklenmediğini belirten bayrak.
+}
+
+export type CommentData = Prisma.CommentGetPayload<{
+  include: ReturnType<typeof getCommentDataInclude>
+}>
+
+export interface CommentsPage {
+  comments: CommentData[]
+  previousCursor: string | null
 }

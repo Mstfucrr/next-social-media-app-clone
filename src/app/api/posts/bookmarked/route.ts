@@ -1,7 +1,7 @@
 import prisma from '@/lib/prisma'
 import { validateRequest } from '@/views/auth/lib/auth'
 import { PostsPage } from '@/views/main/posts/types'
-import { getPostDataInclude } from '@/views/main/posts/utils'
+import { getPostDataInclude } from '@/views/main/utils'
 import { NextRequest } from 'next/server'
 
 export async function GET(req: NextRequest) {
