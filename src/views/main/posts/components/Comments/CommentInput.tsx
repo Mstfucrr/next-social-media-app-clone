@@ -1,18 +1,18 @@
+'use client'
 import { Input } from '@/components/ui/input'
 import LoadingButton from '@/components/ui/loadingButton'
 import useCommentOperations from '@/views/main/hooks/useCommentOperations'
 import { SendHorizonal } from 'lucide-react'
 import { useState } from 'react'
-import { PostData } from '../../types'
 
 interface CommentInputProps {
-  post: PostData
+  postId: string
 }
 
-export default function CommentInput({ post }: CommentInputProps) {
+export default function CommentInput({ postId }: CommentInputProps) {
   const [input, setInput] = useState('')
 
-  const { submitCommentMutation } = useCommentOperations(post.id)
+  const { submitCommentMutation } = useCommentOperations(postId)
 
   const { mutate: onSubmit, isPending } = submitCommentMutation
 
@@ -22,7 +22,7 @@ export default function CommentInput({ post }: CommentInputProps) {
 
     onSubmit(
       {
-        postId: post.id,
+        postId: postId,
         content: input
       },
       {

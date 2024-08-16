@@ -4,6 +4,7 @@ import Linkify from '@/views/main/components/Linkify'
 import UserAvatar from '@/views/main/components/UserAvatar'
 import useSession from '@/views/main/hooks/useSession'
 import Link from 'next/link'
+import { usePathname } from 'next/navigation'
 import { useState } from 'react'
 import UserTooltip from '../../../components/UserTooltip'
 import { PostData } from '../../types'
@@ -22,6 +23,10 @@ export default function Post({ post }: PostProps) {
   const { user: loggedInUser } = useSession()
 
   const [showComments, setShowComments] = useState(false)
+
+  const pathName = usePathname()
+
+  const isPostPage = pathName.endsWith(post.id)
 
   return (
     <article className='group/post space-y-3 rounded-2xl bg-card p-5 shadow-sm'>
@@ -71,7 +76,11 @@ export default function Post({ post }: PostProps) {
               likes: post._count.likes
             }}
           />
-          <CommentButton post={post} onClick={() => setShowComments(!showComments)} />
+          <CommentButton
+            post={post}
+            onClick={() => setShowComments(!showComments)}
+            className={isPostPage ? 'hidden' : ''}
+          />
         </div>
         <BookmarkButton
           postId={post.id}
