@@ -8,3 +8,7 @@ export const createPostSchema = z.object({
 })
 
 export type CreatePostValues = z.infer<typeof createPostSchema>
+
+export const createCommentSchema = z.object({
+  content: requiredString
+})
