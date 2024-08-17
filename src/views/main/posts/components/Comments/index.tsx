@@ -12,7 +12,7 @@ interface CommentsProps {
 export default function Comments({ post }: CommentsProps) {
   const { commentsQuery } = useCommentOperations(post.id)
 
-  const { data, fetchNextPage, hasNextPage, isFetching, status } = commentsQuery
+  const { data, fetchNextPage, hasNextPage, isFetching, status } = commentsQuery()
 
   const comments = data?.pages.flatMap(page => page.comments) ?? []
 

@@ -52,23 +52,25 @@ export default function useCommentOperations(postId: string) {
     }
   })
 
-  const commentsQuery = useInfiniteQuery({
-    queryKey: ['comments', postId], // burada queryKey'i oluşturuyoruz
-    queryFn: async ({ pageParam }) =>
-      kyInstance
-        .get(
-          `/api/posts/${postId}/comments`,
-          pageParam ? { searchParams: { cursor: pageParam } } : {}
-        ) // burada sayfayı alıyoruz
-        .json<CommentsPage>(), // burada sayfayı json olarak dönüştürüyoruz
-    initialPageParam: null as string | null, // burada ilk sayfa parametresini alıyoruz ve null olarak ayarlıyoruz
-    getNextPageParam: firtPage => firtPage.previousCursor, // burada bir sonraki sayfa için firstPage.previousCursor'u alıyoruz
-    select: data => ({
-      pages: [...data.pages].reverse(), // burada sayfaları ters çeviriyoruz
-      pageParams: [...data.pageParams].reverse() // burada sayfa parametrelerini ters çeviriyoruz.
-      // Bu, sayfaların en son sayfadan başlayarak yüklenmesini sağlar
+  const commentsQuery = (pageSize?: number) =>
+    useInfiniteQuery({
+      queryKey: ['comments', postId], // burada queryKey'i oluşturuyoruz
+      queryFn: async ({ pageParam }) => {
+        const searchParams = new URLSearchParams() // burada URLSearchParams oluşturuyoruz
+        if (pageParam) searchParams.set('cursor', pageParam) // burada sayfa parametresini ekliyoruz
+        if (pageSize) searchParams.set('pageSize', pageSize.toString()) // burada sayfa boyutunu ekliyoruz
+        return kyInstance
+          .get(`/api/posts/${postId}/comments`, { searchParams })
+          .json<CommentsPage>() // burada yorumları alıyoruz
+      }, // burada sayfayı json olarak dönüştürüyoruz
+      initialPageParam: null as string | null, // burada ilk sayfa parametresini alıyoruz ve null olarak ayarlıyoruz
+      getNextPageParam: firtPage => firtPage.previousCursor, // burada bir sonraki sayfa için firstPage.previousCursor'u alıyoruz
+      select: data => ({
+        pages: [...data.pages].reverse(), // burada sayfaları ters çeviriyoruz
+        pageParams: [...data.pageParams].reverse() // burada sayfa parametrelerini ters çeviriyoruz.
+        // Bu, sayfaların en son sayfadan başlayarak yüklenmesini sağlar
+      })
     })
-  })
 
   const deleteCommentMutation = useMutation({
     mutationFn: deleteComment,
