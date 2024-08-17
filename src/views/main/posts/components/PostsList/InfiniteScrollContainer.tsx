@@ -22,7 +22,7 @@ export default function InfiniteScrollContainer({
   return (
     <div className={className}>
       {children}
-      <div ref={ref} />
+      <div ref={ref} className='size-0 inline' />
     </div>
   )
 }

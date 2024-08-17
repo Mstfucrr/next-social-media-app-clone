@@ -14,7 +14,8 @@ interface PostDetailCommentsProps {
 export default function PostDetailComments({ post }: PostDetailCommentsProps) {
   const { commentsQuery } = useCommentOperations(post.id)
 
-  const { data, fetchNextPage, hasNextPage, isFetching, status, isFetchingNextPage } = commentsQuery
+  const { data, fetchNextPage, hasNextPage, isFetching, status, isFetchingNextPage } =
+    commentsQuery(10)
 
   const comments = data?.pages.flatMap(page => page.comments).reverse() ?? []
 
@@ -38,11 +39,16 @@ export default function PostDetailComments({ post }: PostDetailCommentsProps) {
             <CommentInput postId={post.id} />
           </div>
           <InfiniteScrollContainer
-            className='space-y-5'
+            className='space-y-5 -mx-3'
             onBottomReached={() => hasNextPage && !isFetching && fetchNextPage()}
           >
             {comments.map(comment => (
-              <Comment key={comment.id} comment={comment} />
+              <div
+                className='bg-primary-foreground py-3 px-4 rounded-2xl transition-colors duration-200 hover:bg-card'
+                key={comment.id}
+              >
+                <Comment comment={comment} />
+              </div>
             ))}
 
             {isFetchingNextPage && <Loader2 className='mx-auto my-3 animate-spin' />}

@@ -9,7 +9,9 @@ export async function GET(req: NextRequest, { params }: { params: { postId: stri
   try {
     const curser = req.nextUrl.searchParams.get('cursor') ?? undefined
 
-    const pageSize = 5
+    const pageSize = req.nextUrl.searchParams.get('pageSize')
+      ? parseInt(req.nextUrl.searchParams.get('pageSize') as string)
+      : 5
 
     const { user } = await validateRequest()
 
